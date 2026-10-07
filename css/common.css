@@ -1,0 +1,5 @@
+.site_works{
+          display:flex;
+          flex-wrap:wrap;
+          gap:15px;
+      }
