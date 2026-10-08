@@ -1,17 +1,90 @@
 <!DOCTYPE html>
+<html lang="ja">
 
-
-<html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>情報技術サークル | メインページ</title>
-    <script src="js/headfooter.js"></script>
+
+    <!-- 共通CSS -->
+    <link rel="stylesheet" href="css/common.css">
+
+    <!-- index.html固有CSS -->
+    <link rel="stylesheet" href="css/index.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="images/icon.png">
 </head>
+
 <body>
+
+    <!-- ヘッダー -->
     <div id="site_header"></div>
 
-    <h1>情報技術サークル</h1>
 
+    <main>
+
+        <!-- ヒーローセクション -->
+        <section class="hero">
+
+            <div class="hero_inner">
+
+                <p class="hero_catch">
+                    MAKE · LEARN · SHARE
+                </p>
+
+                <h1 class="hero_title">
+                    情報技術サークル
+                </h1>
+
+                <p class="hero_text">
+                    情報技術サークルは、Web制作、プログラミング、電子工作などを
+                    楽しみながら学びます。
+                </p>
+
+                <a class="hero_button" href="works.html">
+                    サークルを知る
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- 活動報告 -->
+        <section class="activity">
+
+            <div class="section_inner">
+
+                <h2 class="section_title">
+                    活動報告
+                </h2>
+
+                <p class="section_text">
+                    Markdownで追加した記事が自動的にここへ表示されます。
+                </p>
+
+                <!-- 新着成果物4件をworks.jsが表示 -->
+                <div class="site_works" data-count="4"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- フッター -->
     <div id="site_footer"></div>
+
+
+    <!-- 共通ヘッダー・フッター -->
+    <script src="js/headfooter.js"></script>
+
+    <!-- 成果物一覧 -->
+    <script src="js/works.js"></script>
+
 </body>
+
 </html>

@@ -1,8 +1,9 @@
 # homepage
+
 ## 進捗
-形のみのヘッダーフッターを実装（内容は仮  
-worksを実装  
-デザインはいずれも仮  
+形のみのヘッダーフッターを実装（内容は仮）
+worksを実装
+デザインはいずれも仮
 ## 伝言
 これからは進捗はissueで管理したい
 ファイルを入れていなかったのでdata/reports・images/reportsフォルダが消えているので追加してください
@@ -178,23 +179,23 @@ list.forEach(item => {
 ### data/templates/workdesign.html / css/workdesign.css
 class一覧(JSで中身を置換する対象):
 
-| class名 | 内容 |
-|---|---|
-| `card` | カード全体。クリックで `url` に遷移 |
-| `card_title` | タイトル |
-| `card_picture` | 写真 |
-| `card_text` | 説明文 |
-| `card_date` | 日付 |
+| class名        | 内容                                |
+| -------------- | ----------------------------------- |
+| `card`         | カード全体。クリックで `url` に遷移 |
+| `card_title`   | タイトル                            |
+| `card_picture` | 写真                                |
+| `card_text`    | 説明文                              |
+| `card_date`    | 日付                                |
 
 ### data/templates/reportsdesign.html / css/reportsdesign.css
 class一覧:
 
-| class名 | 内容 |
-|---|---|
-| `card` | カード全体。クリックで `report.html?file=...` に遷移 |
-| `card_title` | タイトル |
-| `card_picture` | サムネイル画像 |
-| `card_date` | 日付 |
+| class名        | 内容                                                 |
+| -------------- | ---------------------------------------------------- |
+| `card`         | カード全体。クリックで `report.html?file=...` に遷移 |
+| `card_title`   | タイトル                                             |
+| `card_picture` | サムネイル画像                                       |
+| `card_date`    | 日付                                                 |
 
 ---
 
