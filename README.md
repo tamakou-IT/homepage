@@ -85,6 +85,7 @@ worksを実装
 
 ### 3.4 report.html
 - `report.js` を読み込み、URLクエリ `?file=xxx.md` の内容を表示
+- `<div id="site_report">`がmdを表示する場所になる
 - `file` パラメータが空の場合は `reports.html` にリダイレクト
 - `file` パラメータは存在するが該当するmdファイルのfetchに失敗した場合(存在しないファイル名等)は、`reports.html` へのリダイレクトはせず、`report.html` 内に以下のメッセージを `report.js` からHTMLとして挿入して表示する
 
@@ -119,7 +120,7 @@ worksを実装
 
 ### report.js
 - URLの `file` パラメータを取得。空なら `reports.html` にリダイレクト
-- `data/reports/` + `file` をfetchし、`marked.js` でHTMLに変換して表示
+- `data/reports/` + `file` をfetchし、`marked.js` でHTMLに変換して`<div id="site_report">`を置き換えて表示
 - `marked.js` は以下を `report.html` の `<head>` で読み込む(バージョン固定、2026年9月時点の最新安定版)
 
   ```html
