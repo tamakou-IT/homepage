@@ -1,0 +1,26 @@
+
+
+h1 {
+    text-align: center;
+    margin: 56px 0 12px;
+}
+h1::after {
+    content: "";
+    display: block;
+
+    width: 72px;
+    height: 4px;
+
+    margin: 16px auto 0;
+
+    border-radius: 999px;
+    background: #2f80ed;
+}
+.site_reports {
+    width: min(920px, calc(100% - 48px));
+    margin: 48px auto 64px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}

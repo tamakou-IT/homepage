@@ -3,3 +3,11 @@
           flex-wrap:wrap;
           gap:15px;
       }
+body {
+    background: #f5f7fa;
+    margin: 0;
+    font-family:
+        "Inter",
+        "Noto Sans JP",
+        sans-serif;
+}
