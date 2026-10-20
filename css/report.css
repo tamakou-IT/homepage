@@ -1,0 +1,257 @@
+/* ============================================================
+   report.css - レポート詳細ページ (Markdown変換後) 用スタイル
+   今後デザインを変更・追加したい場合は、このファイルを編集してください。
+============================================================ */
+
+/* 記事全体のコンテナ */
+#site_report {
+  width: min(860px, calc(100% - 32px));
+  margin: 40px auto 80px;
+  padding: 40px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  color: #1e293b;
+  line-height: 1.8;
+  font-size: 1rem;
+  word-wrap: break-word;
+}
+
+/* スマホ対応 */
+@media (max-width: 640px) {
+  #site_report {
+    padding: 24px 16px;
+    margin: 24px auto 60px;
+  }
+}
+
+/* 404 / 読み込み失敗時のメッセージ表示スタイル */
+.report_not_found {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.report_not_found_title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #334155;
+  margin-bottom: 24px;
+}
+
+.report_not_found_link {
+  display: inline-block;
+  padding: 10px 24px;
+  background-color: #2f80ed;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.report_not_found_link:hover {
+  background-color: #1b66ca;
+  transform: translateY(-2px);
+}
+
+/* ------------------------------------------------------------
+   Markdown本文の要素別スタイル (今後カスタマイズ可能)
+   ------------------------------------------------------------ */
+
+/* 見出し (h1 - h6) */
+#site_report h1,
+#site_report h2,
+#site_report h3,
+#site_report h4,
+#site_report h5,
+#site_report h6 {
+  color: #0f172a;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
+}
+
+#site_report h1:first-child {
+  margin-top: 0;
+}
+
+#site_report h1 {
+  font-size: 2rem;
+  padding-bottom: 0.4em;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+#site_report h2 {
+  font-size: 1.5rem;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+#site_report h3 {
+  font-size: 1.25rem;
+}
+
+#site_report h4 {
+  font-size: 1.1rem;
+}
+
+#site_report h5 {
+  font-size: 1rem;
+}
+
+#site_report h6 {
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+/* 段落 */
+#site_report p {
+  margin-top: 0;
+  margin-bottom: 1.2em;
+}
+
+/* リンク */
+#site_report a {
+  color: #2f80ed;
+  text-decoration: none;
+}
+
+#site_report a:hover {
+  text-decoration: underline;
+}
+
+/* 強調 (太字・斜体・取り消し線) */
+#site_report strong {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+#site_report em {
+  font-style: italic;
+}
+
+#site_report del {
+  color: #94a3b8;
+}
+
+/* 水平線 */
+#site_report hr {
+  border: 0;
+  height: 1px;
+  background: #e2e8f0;
+  margin: 2.5em 0;
+}
+
+/* リスト (箇条書き・番号付き) */
+#site_report ul,
+#site_report ol {
+  padding-left: 2em;
+  margin-top: 0;
+  margin-bottom: 1.2em;
+}
+
+#site_report li {
+  margin-bottom: 0.4em;
+}
+
+#site_report li > ul,
+#site_report li > ol {
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+}
+
+/* タスクリスト (チェックボックス) */
+#site_report ul:has(input[type="checkbox"]) {
+  list-style: none;
+  padding-left: 0.5em;
+}
+
+#site_report input[type="checkbox"] {
+  margin-right: 0.5em;
+  vertical-align: middle;
+}
+
+/* 引用 (blockquote) */
+#site_report blockquote {
+  margin: 1.2em 0;
+  padding: 0.8em 1.2em;
+  color: #475569;
+  background-color: #f8fafc;
+  border-left: 4px solid #2f80ed;
+  border-radius: 0 6px 6px 0;
+}
+
+#site_report blockquote > :first-child {
+  margin-top: 0;
+}
+
+#site_report blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* インラインコード */
+#site_report code {
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-size: 0.875em;
+  padding: 0.2em 0.4em;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  color: #d946ef;
+}
+
+/* コードブロック (pre code) */
+#site_report pre {
+  margin: 1.5em 0;
+  padding: 1.2em 1.4em;
+  background-color: #1e293b;
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+
+#site_report pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: #f8fafc;
+  font-size: 0.9rem;
+}
+
+/* テーブル */
+#site_report table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  display: block;
+  overflow-x: auto;
+}
+
+#site_report th,
+#site_report td {
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  text-align: left;
+}
+
+#site_report th {
+  background-color: #f1f5f9;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+#site_report tr:nth-child(even) td {
+  background-color: #f8fafc;
+}
+
+/* 画像 */
+#site_report img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 1.2em auto;
+  display: block;
+}

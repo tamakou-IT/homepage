@@ -1,16 +1,27 @@
 <!DOCTYPE html>
-
-
-<html>
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>情報技術サークル | レポート</title>
+
+    <!-- 共通CSS & レポート個別CSS -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/report.css">
+    <link rel="icon" type="image/png" href="images/icon.png">
+
+    <!-- marked.js (Markdownパーサー) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@18.0.4/lib/marked.umd.js"></script>
+
+    <!-- スクリプト -->
     <script src="js/headfooter.js"></script>
-    <script type="module" src="js/report.js"></script>
+    <script src="js/report.js" defer></script>
 </head>
 <body>
-    <div id ="site-header"></div>
-    <div id="site_report"></div>
+    <div id="site_header"></div>
+    <main>
+        <div id="site_report"></div>
+    </main>
     <div id="site_footer"></div>
 </body>
 </html>
