@@ -1,17 +1,17 @@
 [
     {
-        "title":"テスト",
-        "picture":"images/works/test.jpg",
-        "text":"テストです",
-        "date":"2026-10-06",
-        "url":"https://example.com"
+        "title":"カラテ家",
+        "picture":"images/works/カラテ家.png",
+        "text":"2026年度の文化祭で制作したゲームです",
+        "date":"2026-07-11",
+        "url":"https://healer-jp.itch.io/karate-rhythm"
     },
     {
-        "title":"テスト",
-        "picture":"images/works/test.jpg",
-        "text":"テストです",
-        "date":"1999-10-06",
-        "url":"https://example.com"
+        "title":"ブロック崩しゲーム",
+        "picture":"images/works/ブロック崩し.png",
+        "text":"スクラッチで作成した。ブロック崩しゲームをやったことがない人が作りました",
+        "date":"2021-12-21",
+        "url":"https://scratch.mit.edu/projects/431773733/"
     }
 
 ]
