@@ -15,51 +15,190 @@
    * クラス名は他CSSとの衝突を避けるため hf_ を接頭辞にする
    * ---------------------------------------------------------- */
   const CSS = `
+    /* ==========================================================
+   Header
+   ========================================================== */
+
+.hf_header {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 18px 32px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #e6e6e6;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+
+}
+
+/* サイトタイトル */
+
+.hf_title {
+
+    font-size: 1.5rem;
+    font-weight: 700;
+
+    color: #222;
+    text-decoration: none;
+
+    transition: color .2s;
+    transform: translateY(-5px);
+
+}
+
+.hf_title:hover {
+
+    color: #2f80ed;
+
+}
+.hf_title img {
+
+    width: 36px;
+    height: 36px;
+    transform: translateY(8px);
+    object-fit: contain;
+
+    flex-shrink: 0;
+
+}
+/* ナビゲーション */
+
+.hf_nav {
+
+    display: flex;
+
+    gap: 32px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+}
+
+.hf_nav a {
+
+    position: relative;
+
+    color: #444;
+    text-decoration: none;
+
+    font-size: 1rem;
+    font-weight: 500;
+
+    transition: color .2s;
+
+}
+
+/* 下線アニメーション */
+
+.hf_nav a::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -6px;
+
+    width: 100%;
+    height: 2px;
+
+    background: #2f80ed;
+
+    transform: scaleX(0);
+    transform-origin: center;
+
+    transition: transform .2s;
+
+}
+
+.hf_nav a:hover,
+.hf_nav a[aria-current="page"] {
+
+    color: #2f80ed;
+
+}
+
+.hf_nav a:hover::after,
+.hf_nav a[aria-current="page"]::after {
+
+    transform: scaleX(1);
+
+}
+
+/* ==========================================================
+   Footer
+   ========================================================== */
+
+.hf_footer {
+
+    margin-top: 64px;
+
+    padding: 32px 24px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border-top: 1px solid #e6e6e6;
+
+    color: #777;
+
+    font-size: .9rem;
+
+}
+
+/* ==========================================================
+   Responsive
+   ========================================================== */
+
+@media (max-width: 768px) {
+
     .hf_header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem 1.5rem;
-      padding: 0.75rem 1.5rem;
-      background: #fff;
-      border-bottom: 1px solid #ddd;
-      box-sizing: border-box;
+
+        flex-direction: column;
+
+        gap: 18px;
+
+        padding: 20px;
+
     }
-    .hf_title {
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: inherit;
-      text-decoration: none;
-    }
+
     .hf_nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.25rem 1.25rem;
-      margin: 0;
-      padding: 0;
-      list-style: none;
+
+        gap: 20px;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+
     }
-    .hf_nav a {
-      color: inherit;
-      text-decoration: none;
-      padding: 0.25rem 0;
-      border-bottom: 2px solid transparent;
-    }
-    .hf_nav a:hover,
-    .hf_nav a:focus-visible,
-    .hf_nav a[aria-current="page"] {
-      border-bottom-color: currentColor;
-    }
-    .hf_footer {
-      padding: 1.5rem;
-      text-align: center;
-      font-size: 0.85rem;
-      color: #666;
-      background: #f7f7f7;
-      border-top: 1px solid #ddd;
-      box-sizing: border-box;
-    }
+  
+}
+.hf_social i {
+
+    font-size: 24px;
+
+    color: #555;
+
+    transition:
+        color .2s,
+        transform .2s;
+
+}
+
+.hf_social a:hover i {
+
+    color: #2f80ed;
+
+    transform: scale(1.1);
+
+}
   `;
 
   /* ------------------------------------------------------------
@@ -67,7 +206,10 @@
    * ---------------------------------------------------------- */
   const HEADER_HTML = `
     <header class="hf_header">
-      <a class="hf_title" href="index.html">サークル名</a>
+      <a class="hf_title" href="index.html">
+        <img src="images/icon.svg" alt="ITサークル ロゴ">
+        <span>ITサークル</span>
+      </a>
       <nav aria-label="メインナビゲーション">
         <ul class="hf_nav">
           <li><a href="index.html">ホーム</a></li>
@@ -79,8 +221,16 @@
   `;
 
   const FOOTER_HTML = `
-    <footer class="hf_footer">
-      <p>&copy; <span class="hf_year"></span> サークル名</p>
+   <footer class="hf_footer">
+      <div class="hf_social">
+        <a href="https://www.instagram.com/tama_itcircle?dlrf=bnpsenRqcGo1OG51" aria-label="Instagram">
+           <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://x.com/TAMA_ITcircle" aria-label="X">
+          <i class="fa-brands fa-x-twitter"></i>
+        </a>
+      </div>
+      <p>&copy; <span class="hf_year"></span> ITcircle</p>
     </footer>
   `;
 
