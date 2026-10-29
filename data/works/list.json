@@ -18,6 +18,15 @@
         "url":"https://healer-jp.itch.io/healer-godot-2d"
     },
     {
+        "title":"HIGH&LOW",
+        "picture":"images/works/HIGH&LOW.png",
+        "genre":"トランプ",
+        "device":"スマホ・PC",
+        "text":"ScratchでChatGPTを用いて作成しました。相手のカードよりHIGHかLOWを当てるゲームです。",
+        "date":"2026-04-03",
+        "url":"https://scratch.mit.edu/projects/1298117024/"
+    },
+    {
         "title":"Zombie Panic!",
         "picture":"images/works/Zombie_Panic!.png",
         "genre":"防衛ゲーム",
@@ -31,7 +40,7 @@
         "picture":"images/works/ブロック崩し.png",
         "genre":"ブロック崩しゲーム",
         "device":"PC",
-        "text":"スクラッチで作成しました。ブロック崩しゲームをやったことがない人が作ったので、少し様子がおかしい。",
+        "text":"Scratchで作成しました。ブロック崩しゲームをやったことがない人が作ったので、少し様子がおかしい。",
         "date":"2021-12-21",
         "url":"https://scratch.mit.edu/projects/431773733/"
     }
