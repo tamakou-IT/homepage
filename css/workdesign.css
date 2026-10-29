@@ -1,5 +1,5 @@
 
-.card {
+.site_works .card {
     display: block;
 
     width: 280px;
@@ -20,7 +20,7 @@
         box-shadow 0.2s ease;
 }
 
-.card:hover {
+.site_works .card:hover {
     transform: translateY(-5px);
     transition: transform .2s;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
@@ -28,12 +28,12 @@
     border-color: #2f80ed;
     
 }
-.card:hover .card_title {
+.site_works .card:hover .card_title {
     color:#2f80ed;
 }
 
 /* 画像 */
-.card_picture {
+.site_works .card_picture {
     display: block;
 
     width: 100%;
@@ -42,9 +42,22 @@
     object-fit: cover;
 }
 
+/* ジャンル */
+.site_works .card_genre {
+    display: inline-block;
+    margin: 10px 16px 0;
+    padding: 2px 8px;
+
+    font-size: 11px;
+    font-weight: bold;
+    color: #2f80ed;
+    background-color: #eaf2fd;
+    border-radius: 4px;
+}
+
 /* タイトル */
-.card_title {
-    margin: 14px 16px 8px;
+.site_works .card_title {
+    margin: 6px 16px 8px;
 
     font-size: 20px;
     font-weight: bold;
@@ -55,7 +68,7 @@
 
 
 /* 本文 */
-.card_text {
+.site_works .card_text {
     margin: 0 16px;
 
     font-size: 14px;
@@ -66,7 +79,7 @@
 
 
 /* 日付 */
-.card_date {
+.site_works .card_date {
     margin: 0 12px 10px;
 
     text-align: right;

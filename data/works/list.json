@@ -1,7 +1,8 @@
-[
+﻿[
     {
         "title":"カラテ家",
         "picture":"images/works/カラテ家.png",
+        "genre":"リズムゲーム",
         "text":"2026年度の文化祭で制作したゲームです。",
         "date":"2026-07-11",
         "url":"https://healer-jp.itch.io/karate-rhythm"
@@ -9,13 +10,15 @@
     {
         "title":"Godot「最初の2Dゲーム」 ",
         "picture":"images/works/最初の2Dゲーム.png",
-        "text":"Godotの公式チュートリアル「最初の2Dゲーム」に沿って作成しました。避けゲーです。",
+        "genre":"避けゲー",
+        "text":"Godotの公式チュートリアル「最初の2Dゲーム」に沿って作成しました。制作過程を通してGodotの使い方を学びました。",
         "date":"2026-05-24",
         "url":"https://healer-jp.itch.io/healer-godot-2d"
     },
     {
         "title":"Zombie Panic!",
         "picture":"images/works/Zombie_Panic!.png",
+        "genre":"防衛ゲーム",
         "text":"ゾンビから村を守るゲームです。TurboWarp Packagerで書き出されたScratch系プロジェクトです。",
         "date":"2025-MM-DD",
         "url":"https://healer-jp.itch.io/zombie-panic"
@@ -23,7 +26,8 @@
     {
         "title":"ブロック崩しゲーム",
         "picture":"images/works/ブロック崩し.png",
-        "text":"スクラッチで作成しました。ブロック崩しゲームをやったことがない人が作りました。",
+        "genre":"ブロック崩しゲーム",
+        "text":"スクラッチで作成しました。ブロック崩しゲームをやったことがない人が作ったので、少し様子がおかしいような,,,",
         "date":"2021-12-21",
         "url":"https://scratch.mit.edu/projects/431773733/"
     }

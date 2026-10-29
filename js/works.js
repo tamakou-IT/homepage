@@ -31,6 +31,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             card.href = item.url;
 
+            const genreEl = card.querySelector(".card_genre");
+            if (genreEl) {
+                if (item.genre) {
+                    genreEl.textContent = item.genre;
+                } else {
+                    genreEl.style.display = "none";
+                }
+            }
+
             card.querySelector(".card_title").textContent = item.title;
 
             const picture = card.querySelector(".card_picture");

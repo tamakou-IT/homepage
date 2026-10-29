@@ -185,6 +185,7 @@ class一覧(JSで中身を置換する対象):
 | -------------- | ----------------------------------- |
 | `card`         | カード全体。クリックで `url` に遷移 |
 | `card_title`   | タイトル                            |
+| `card_genre`   | ジャンル(任意)                      |
 | `card_picture` | 写真                                |
 | `card_text`    | 説明文                              |
 | `card_date`    | 日付                                |
@@ -210,6 +211,7 @@ class一覧:
   {
     "title": "hogehoge",
     "picture": "images/works/work1.png",
+    "genre": "ゲーム",
     "text": "fugafuga",
     "date": "2023-01-15",
     "url": "https://example.com/hogehoge"
