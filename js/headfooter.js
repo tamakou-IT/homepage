@@ -19,19 +19,37 @@
    Header
    ========================================================== */
 
+#site_header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+#site_header.hf_hidden {
+    transform: translateY(-100%);
+}
+
 .hf_header {
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    padding: 18px 32px;
+    padding: 16px 32px;
 
-    background: #ffffff;
+    background: rgba(13, 19, 31, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 
 }
 
@@ -42,7 +60,7 @@
     font-size: 1.5rem;
     font-weight: 700;
 
-    color: #222;
+    color: #ffffff;
     text-decoration: none;
 
     transition: color .2s;
@@ -52,7 +70,7 @@
 
 .hf_title:hover {
 
-    color: #2f80ed;
+    color: #60a5fa;
 
 }
 .hf_title img {
@@ -84,7 +102,7 @@
 
     position: relative;
 
-    color: #444;
+    color: #cbd5e1;
     text-decoration: none;
 
     font-size: 1rem;
@@ -108,7 +126,7 @@
     width: 100%;
     height: 2px;
 
-    background: #2f80ed;
+    background: #60a5fa;
 
     transform: scaleX(0);
     transform-origin: center;
@@ -120,7 +138,7 @@
 .hf_nav a:hover,
 .hf_nav a[aria-current="page"] {
 
-    color: #2f80ed;
+    color: #60a5fa;
 
 }
 
@@ -143,11 +161,11 @@
 
     text-align: center;
 
-    background: #ffffff;
+    background: #0d131f;
 
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid #1e293b;
 
-    color: #777;
+    color: #94a3b8;
 
     font-size: .9rem;
 
@@ -180,11 +198,25 @@
     }
   
 }
+.hf_social {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 16px;
+}
+
+.hf_social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
 .hf_social i {
 
-    font-size: 24px;
+    font-size: 32px;
 
-    color: #555;
+    color: #94a3b8;
 
     transition:
         color .2s,
@@ -194,9 +226,9 @@
 
 .hf_social a:hover i {
 
-    color: #2f80ed;
+    color: #60a5fa;
 
-    transform: scale(1.1);
+    transform: scale(1.15);
 
 }
   `;
@@ -285,6 +317,39 @@
     } else {
       document.body.appendChild(footer);
     }
+
+    // スクロールに応じたヘッダーの出し入れ（下スクロールで隠し、上スクロールで表示）
+    initScrollHeader(headerSlot || header);
+  }
+
+  function initScrollHeader(headerElement) {
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', function () {
+      const currentScrollY = window.scrollY;
+
+      // ページ最上部（50px以内）では常に表示
+      if (currentScrollY <= 50) {
+        headerElement.classList.remove('hf_hidden');
+        lastScrollY = currentScrollY;
+        return;
+      }
+
+      // 微小なスクロール（手ブレや数pxの移動）は無視
+      if (Math.abs(currentScrollY - lastScrollY) < 5) {
+        return;
+      }
+
+      if (currentScrollY > lastScrollY) {
+        // 下スクロール → 画面外へ隠す
+        headerElement.classList.add('hf_hidden');
+      } else {
+        // 上スクロール → スムーズに表示
+        headerElement.classList.remove('hf_hidden');
+      }
+
+      lastScrollY = currentScrollY;
+    }, { passive: true });
   }
 
   // <head> で読み込まれても <body> 末尾で読み込まれても動くようにする
