@@ -188,6 +188,7 @@ class一覧(JSで中身を置換する対象):
 | `card_genre`   | ジャンル(任意)                      |
 | `card_picture` | 写真                                |
 | `card_text`    | 説明文                              |
+| `card_device`   | 対応端末(任意、テキスト)            |
 | `card_date`    | 日付                                |
 
 ### data/templates/reportsdesign.html / css/reportsdesign.css
@@ -212,6 +213,7 @@ class一覧:
     "title": "hogehoge",
     "picture": "images/works/work1.png",
     "genre": "ゲーム",
+    "device": "PC",
     "text": "fugafuga",
     "date": "2023-01-15",
     "url": "https://example.com/hogehoge"

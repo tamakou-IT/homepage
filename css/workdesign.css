@@ -1,6 +1,8 @@
 
-.site_works .card {
-    display: block;
+.site_works .card,
+.card {
+    display: flex;
+    flex-direction: column;
 
     width: 280px;
     aspect-ratio: 3 / 4;
@@ -20,7 +22,8 @@
         box-shadow 0.2s ease;
 }
 
-.site_works .card:hover {
+.site_works .card:hover,
+.card:hover {
     transform: translateY(-5px);
     transition: transform .2s;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
@@ -28,12 +31,14 @@
     border-color: #2f80ed;
     
 }
-.site_works .card:hover .card_title {
+.site_works .card:hover .card_title,
+.card:hover .card_title {
     color:#2f80ed;
 }
 
 /* 画像 */
-.site_works .card_picture {
+.site_works .card_picture,
+.card_picture {
     display: block;
 
     width: 100%;
@@ -43,8 +48,12 @@
 }
 
 /* ジャンル */
-.site_works .card_genre {
+.site_works .card_genre,
+.card_genre {
+    align-self: flex-start;
     display: inline-block;
+    width: fit-content;
+    max-width: fit-content;
     margin: 10px 16px 0;
     padding: 2px 8px;
 
@@ -56,7 +65,8 @@
 }
 
 /* タイトル */
-.site_works .card_title {
+.site_works .card_title,
+.card_title {
     margin: 6px 16px 8px;
 
     font-size: 20px;
@@ -68,7 +78,8 @@
 
 
 /* 本文 */
-.site_works .card_text {
+.site_works .card_text,
+.card_text {
     margin: 0 16px;
 
     font-size: 14px;
@@ -78,9 +89,36 @@
 }
 
 
+/* フッター（対応端末・日付） */
+.site_works .card_footer,
+.card_footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: auto;
+    padding: 0 16px 12px;
+}
+
+/* 対応端末 */
+.site_works .card_device,
+.card_device {
+    display: inline-block;
+    padding: 2px 6px;
+
+    font-size: 11px;
+    font-weight: 500;
+    color: #555;
+    background-color: #f0f2f5;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+}
+
 /* 日付 */
-.site_works .card_date {
-    margin: 0 12px 10px;
+.site_works .card_date,
+.card_date {
+    margin: 0;
+    margin-left: auto;
 
     text-align: right;
 

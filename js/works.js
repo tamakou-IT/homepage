@@ -47,6 +47,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             picture.alt = item.title;
 
             card.querySelector(".card_text").textContent = item.text;
+
+            const deviceEl = card.querySelector(".card_device");
+            if (deviceEl) {
+                if (item.device) {
+                    deviceEl.textContent = item.device;
+                } else {
+                    deviceEl.style.display = "none";
+                }
+            }
+
             card.querySelector(".card_date").textContent = item.date;
 
             container.appendChild(card);
