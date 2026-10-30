@@ -190,6 +190,64 @@
 }
 
 /* ========================================
+   もっと見るボタン（セクション共通）
+======================================== */
+
+.section_more {
+    margin-top: 48px;
+    text-align: center;
+}
+
+.section_more_btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 14px 36px;
+
+    background-color: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    border-radius: 9999px;
+
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.section_more_btn i {
+    font-size: 0.85rem;
+    transition: transform 0.2s ease;
+}
+
+.section_more_btn:hover {
+    background-color: #2f80ed;
+    border-color: #2f80ed;
+    color: #ffffff;
+    box-shadow: 0 6px 20px rgba(47, 128, 237, 0.25);
+    transform: translateY(-2px);
+}
+
+.section_more_btn:hover i {
+    transform: translateX(4px);
+}
+
+.section_more_btn:active {
+    transform: translateY(0);
+}
+
+/* ========================================
    レスポンシブ
 ======================================== */
 
