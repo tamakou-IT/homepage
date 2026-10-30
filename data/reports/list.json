@@ -6,15 +6,33 @@
     "date": "2026-10-29"
   },
   {
-    "file": "THBCからの取材.md",
-    "title": "THBCからの取材",
+    "file": "データサイエンスコンテスト参加記.md",
+    "title": "データサイエンスコンテスト参加記",
     "picture": "images/reports/test.jpg",
-    "date": "2026-05-20"
+    "date": "2026-10-15"
+  },
+  {
+    "file": "SuperCon参加記.md",
+    "title": "SuperCon参加記",
+    "picture": "images/reports/test.jpg",
+    "date": "2026-08-21"
   },
   {
     "file": "創立の経緯.md",
     "title": "創立の経緯",
     "picture": "images/reports/test.jpg",
     "date": "2026-07-17"
+  },
+  {
+    "file": "THBCからの取材.md",
+    "title": "THBCからの取材",
+    "picture": "images/reports/test.jpg",
+    "date": "2026-05-20"
+  },
+  {
+    "file": "文化祭展示.md",
+    "title": "文化祭展示",
+    "picture": "images/reports/test.jpg",
+    "date": "2026-07-12"
   }
 ]
