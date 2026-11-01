@@ -65,16 +65,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     function initMathExtensions() {
         if (!window.marked || !window.katex || window.__marked_katex_registered) return;
 
+        // ブロック数式拡張 (\[ ... \], $$ ... $$)
         const mathBlockExtension = {
             name: "mathBlock",
             level: "block",
-            start(src) {
-                const idx1 = src.indexOf('\[');
-                const idx2 = src.indexOf('$$');
-                if (idx1 === -1) return idx2;
-                if (idx2 === -1) return idx1;
-                return Math.min(idx1, idx2);
-            },
             tokenizer(src) {
                 // \[ ... \]
                 const matchBracket = src.match(/^\\\[([\s\S]+?)\\\]/);
@@ -111,15 +105,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         };
 
+        // インライン数式拡張 (\( ... \), $ ... $)
         const mathInlineExtension = {
             name: "mathInline",
             level: "inline",
             start(src) {
-                const idx1 = src.indexOf('\\(');
-                const idx2 = src.indexOf('$');
-                if (idx1 === -1) return idx2;
-                if (idx2 === -1) return idx1;
-                return Math.min(idx1, idx2);
+                const match = src.match(/\\\(|\$/);
+                return match ? match.index : -1;
             },
             tokenizer(src) {
                 // \( ... \)
