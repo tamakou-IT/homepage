@@ -255,3 +255,161 @@
   margin: 1.2em auto;
   display: block;
 }
+
+/* ============================================================
+   前後の記事ナビゲーション
+============================================================ */
+.report_pagination {
+  margin-top: 60px;
+  padding-top: 32px;
+  border-top: 1px solid #e2e8f0;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.report_pagination_link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+
+  text-decoration: none;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #1e293b;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  min-width: 0;
+}
+
+.report_pagination_link:hover {
+  background-color: #ffffff;
+  border-color: #2f80ed;
+  box-shadow: 0 4px 12px rgba(47, 128, 237, 0.12);
+  text-decoration: none;
+}
+
+.report_pagination_prev:hover {
+  transform: translateX(-3px);
+}
+
+.report_pagination_next:hover {
+  transform: translateX(3px);
+}
+
+.report_pagination_link i {
+  font-size: 0.9rem;
+  color: #64748b;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.report_pagination_link:hover i {
+  color: #2f80ed;
+}
+
+.report_pagination_content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.report_pagination_next .report_pagination_content {
+  text-align: right;
+  margin-left: auto;
+}
+
+.report_pagination_label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.report_pagination_title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.4;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.report_pagination_link:hover .report_pagination_title {
+  color: #2f80ed;
+}
+
+/* 一覧へ戻るボタン */
+.report_pagination_list {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  padding: 8px 14px;
+  text-decoration: none;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #64748b;
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.report_pagination_list i {
+  font-size: 1rem;
+}
+
+.report_pagination_list:hover {
+  border-color: #2f80ed;
+  color: #2f80ed;
+  background-color: #f0f7ff;
+  text-decoration: none;
+}
+
+.report_pagination_placeholder {
+  visibility: hidden;
+}
+
+/* スマホ表示 */
+@media (max-width: 640px) {
+  .report_pagination {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 40px;
+    padding-top: 24px;
+  }
+
+  .report_pagination_list {
+    order: -1;
+    align-self: center;
+    flex-direction: row;
+    padding: 8px 18px;
+    gap: 8px;
+  }
+
+  .report_pagination_placeholder {
+    display: none;
+  }
+}

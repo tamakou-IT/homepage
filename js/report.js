@@ -50,9 +50,85 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.title = `${firstH1.textContent.trim()} | 情報技術サークル`;
         }
 
+        // 5. 前後の記事へのナビゲーションリンクを生成・挿入
+        await setupPagination(fileName, reportContainer);
+
     } catch (error) {
         console.error("レポートの読み込みに失敗しました:", error);
         showNotFound();
+    }
+
+    // 前後の記事ナビゲーション設定
+    async function setupPagination(currentFile, container) {
+        try {
+            const listRes = await fetch("data/reports/list.json");
+            if (!listRes.ok) return;
+
+            const list = await listRes.json();
+            // 日付の降順（新しい順）にソート
+            list.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            const currentIndex = list.findIndex(item => item.file === currentFile);
+            if (currentIndex === -1) return;
+
+            // 新しい記事（降順なのでインデックスが -1）
+            const nextArticle = currentIndex > 0 ? list[currentIndex - 1] : null;
+            // 古い記事（降順なのでインデックスが +1）
+            const prevArticle = currentIndex < list.length - 1 ? list[currentIndex + 1] : null;
+
+            if (!prevArticle && !nextArticle) return;
+
+            const nav = document.createElement("nav");
+            nav.className = "report_pagination";
+            nav.setAttribute("aria-label", "前後の記事");
+
+            // 前の記事（過去の記事）
+            const prevHtml = prevArticle
+                ? `
+                <a class="report_pagination_link report_pagination_prev" href="report.html?file=${encodeURIComponent(prevArticle.file)}">
+                    <i class="fa-solid fa-chevron-left"></i>
+                    <div class="report_pagination_content">
+                        <span class="report_pagination_label">前の記事</span>
+                        <span class="report_pagination_title">${escapeHtml(prevArticle.title)}</span>
+                    </div>
+                </a>`
+                : `<div class="report_pagination_placeholder"></div>`;
+
+            // 一覧へ戻るボタン
+            const listHtml = `
+                <a class="report_pagination_list" href="reports.html" aria-label="レポート一覧へ戻る" title="レポート一覧へ">
+                    <i class="fa-solid fa-grip"></i>
+                    <span>一覧へ</span>
+                </a>`;
+
+            // 次の記事（新しい記事）
+            const nextHtml = nextArticle
+                ? `
+                <a class="report_pagination_link report_pagination_next" href="report.html?file=${encodeURIComponent(nextArticle.file)}">
+                    <div class="report_pagination_content">
+                        <span class="report_pagination_label">次の記事</span>
+                        <span class="report_pagination_title">${escapeHtml(nextArticle.title)}</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>`
+                : `<div class="report_pagination_placeholder"></div>`;
+
+            nav.innerHTML = prevHtml + listHtml + nextHtml;
+            container.appendChild(nav);
+
+        } catch (e) {
+            console.warn("ナビゲーションの生成に失敗しました:", e);
+        }
+    }
+
+    function escapeHtml(str) {
+        if (!str) return "";
+        return str
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
     }
 
     // 404 / 読み込み失敗メッセージ表示
