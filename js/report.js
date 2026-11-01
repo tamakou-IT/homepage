@@ -33,6 +33,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const mdText = await response.text();
 
+        // KaTeX 数式拡張を初期化
+        initMathExtensions();
+
         // 3. marked を用いて Markdown を HTML にパース
         // marked は report.html で UMD 形式で読み込まれている (window.marked)
         const parseMarkdown = (window.marked && window.marked.parse) 
@@ -56,6 +59,106 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (error) {
         console.error("レポートの読み込みに失敗しました:", error);
         showNotFound();
+    }
+
+    // KaTeX 数式拡張の設定
+    function initMathExtensions() {
+        if (!window.marked || !window.katex || window.__marked_katex_registered) return;
+
+        const mathBlockExtension = {
+            name: "mathBlock",
+            level: "block",
+            start(src) {
+                const idx1 = src.indexOf('\[');
+                const idx2 = src.indexOf('$$');
+                if (idx1 === -1) return idx2;
+                if (idx2 === -1) return idx1;
+                return Math.min(idx1, idx2);
+            },
+            tokenizer(src) {
+                // \[ ... \]
+                const matchBracket = src.match(/^\\\[([\s\S]+?)\\\]/);
+                if (matchBracket) {
+                    return {
+                        type: "mathBlock",
+                        raw: matchBracket[0],
+                        text: matchBracket[1].trim(),
+                        display: true
+                    };
+                }
+                // $$ ... $$
+                const matchDollar = src.match(/^\$\$([\s\S]+?)\$\$/);
+                if (matchDollar) {
+                    return {
+                        type: "mathBlock",
+                        raw: matchDollar[0],
+                        text: matchDollar[1].trim(),
+                        display: true
+                    };
+                }
+            },
+            renderer(token) {
+                try {
+                    return '<div class="katex-display-wrapper">' + window.katex.renderToString(token.text, {
+                        displayMode: true,
+                        throwOnError: false,
+                        strict: false
+                    }) + '</div>\n';
+                } catch (err) {
+                    console.error("KaTeX block render error:", err);
+                    return '<div class="katex-display-wrapper"><pre class="katex-error">' + escapeHtml(token.text) + '</pre></div>\n';
+                }
+            }
+        };
+
+        const mathInlineExtension = {
+            name: "mathInline",
+            level: "inline",
+            start(src) {
+                const idx1 = src.indexOf('\\(');
+                const idx2 = src.indexOf('$');
+                if (idx1 === -1) return idx2;
+                if (idx2 === -1) return idx1;
+                return Math.min(idx1, idx2);
+            },
+            tokenizer(src) {
+                // \( ... \)
+                const matchParen = src.match(/^\\\((.+?)\\\)/s);
+                if (matchParen) {
+                    return {
+                        type: "mathInline",
+                        raw: matchParen[0],
+                        text: matchParen[1].trim(),
+                        display: false
+                    };
+                }
+                // $ ... $
+                const matchDollar = src.match(/^\$([^$\n]+?)\$/);
+                if (matchDollar) {
+                    return {
+                        type: "mathInline",
+                        raw: matchDollar[0],
+                        text: matchDollar[1].trim(),
+                        display: false
+                    };
+                }
+            },
+            renderer(token) {
+                try {
+                    return window.katex.renderToString(token.text, {
+                        displayMode: false,
+                        throwOnError: false,
+                        strict: false
+                    });
+                } catch (err) {
+                    console.error("KaTeX inline render error:", err);
+                    return '<span class="katex-error">' + escapeHtml(token.text) + '</span>';
+                }
+            }
+        };
+
+        window.marked.use({ extensions: [mathBlockExtension, mathInlineExtension] });
+        window.__marked_katex_registered = true;
     }
 
     // 前後の記事ナビゲーション設定

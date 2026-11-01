@@ -129,6 +129,147 @@ reportを実装（Markdown自動HTML変換・report.css適用）
   ```
 
 - fetchが失敗した場合(該当mdファイルが存在しない等)は `reports.html` へリダイレクトせず、3.4節の「お探しのページは見つかりませんでした」メッセージを表示する
+- **KaTeX 数式表示対応**:
+  - `report.html` に KaTeX (CSS & JS) を追加:
+    ```html
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script>
+    ```
+  - `report.js` 内で `marked` のカスタム拡張を登録し、Markdownエスケープ前に数式をトークン化して KaTeX (`katex.renderToString`) でレンダリング。
+  - 対応記法:
+    - インライン数式: `\( ... \)`, `$ ... # homepage
+
+## 進捗
+形のみのヘッダーフッターを実装（内容は仮）
+worksを実装
+reportを実装（Markdown自動HTML変換・report.css適用）
+デザインはいずれも仮
+## 伝言
+これからは進捗はissueで管理したい
+ファイルを入れていなかったのでdata/reports・images/reportsフォルダが消えているので追加してください
+# サークル紹介サイト 仕様書(改訂版)
+
+## 0. 全体方針
+
+- フロントエンドのみで完結する静的サイト(ビルドツール・バックエンドなし)
+- GitHub Pagesの**プロジェクトページ**(`username.github.io/リポジトリ名/`)として公開
+- 上記に伴い、すべてのパス(fetch先、`<link>`、`<img>`、内部リンク等)は**先頭 `/` を付けない相対パス**で統一する(絶対パスだとリポジトリ名の階層がずれて動かなくなるため)
+
+---
+
+## 1. ディレクトリ構成
+
+```
+├── index.html
+├── works.html
+├── reports.html
+├── report.html
+│
+├── css/
+│   ├── common.css          … 全ページ共通(基本タイポグラフィ, 色, レイアウトの土台, リセットCSS等。header/footerのCSSは含まない)
+│   ├── index.css           … index.html固有
+│   ├── works.css           … works.html固有
+│   ├── reports.css         … reports.html固有
+│   ├── workdesign.css      … 成果物カード部品の見た目
+│   └── reportsdesign.css   … レポートカード部品の見た目
+│
+├── js/
+│   ├── headfooter.js
+│   ├── works.js
+│   ├── reports.js
+│   └── report.js
+│
+├── data/
+│   ├── templates/
+│   │   ├── workdesign.html     … 成果物カードの型(単体表示可能な完全なHTML文書)
+│   │   └── reportsdesign.html  … レポートカードの型(同上)
+│   ├── works/
+│   │   └── list.json
+│   └── reports/
+│       ├── list.json
+│       └── *.md                 … レポート本文
+│
+└── images/
+    ├── works/
+    │   └── *.png (等)
+    ├── reports/
+    │   └── *.png (等)
+    └── icon.png              … favicon
+```
+
+### 分類の考え方
+- `data/` = JSが**fetchしてテキストとして解釈・加工する**もの(JSON, Markdown, テンプレートHTML)
+- `css/` `images/` = ブラウザが**直接リソースとして読み込む**もの(JSが中身を解釈しない)
+
+---
+
+## 2. 命名・データ形式の共通ルール
+
+- 日付形式: `YYYY-MM-DD` (ISO 8601)。並び替えは `new Date(date)` で比較し、**新しい日付が先頭**になるよう降順ソートする
+- JSONのキー名は英小文字、1単語で統一(例: `title`, `picture`, `text`, `date`, `url`)
+- 命名規則: **`reports`(複数形)= 一覧表示に関わるもの**(`reports.js`, `reports.html`, `reportsdesign.html`)、**`report`(単数形)= 個別ページの表示に関わるもの**(`report.js`, `report.html`)という使い分けで統一する。なお works は個別の詳細ページを持たず(カードは外部URLへ直接遷移)、`report.html` に相当する単数形ページが存在しないため、`work` 単体のファイルはない
+
+---
+
+## 3. ページ仕様
+
+### 3.1 index.html
+- `headfooter.js` を読み込み、ヘッダー/フッターを自動挿入
+- `works.js` を読み込み、`<div class="site_works" data-count="4"></div>` を設置し、新着成果物4件を表示
+
+### 3.2 works.html
+- `<div class="site_works"></div>`(data-count省略 = 全件表示)
+
+### 3.3 reports.html
+- `<div class="site_reports"></div>`(data-count省略 = 全件表示)
+
+### 3.4 report.html
+- `report.js` を読み込み、URLクエリ `?file=xxx.md` の内容を表示
+- `<div id="site_report">`がmdを表示する場所になる
+- `file` パラメータが空の場合は `reports.html` にリダイレクト
+- `file` パラメータは存在するが該当するmdファイルのfetchに失敗した場合(存在しないファイル名等)は、`reports.html` へのリダイレクトはせず、`report.html` 内に以下のメッセージを `report.js` からHTMLとして挿入して表示する
+
+  ```
+  お探しのページは見つかりませんでした
+  トップに戻る (index.htmlへのリンク)
+  ```
+
+---
+
+## 4. JSモジュール仕様
+
+### headfooter.js
+- html/cssをJS内に直書き(fetchによる表示遅延を避けるため)
+- `<div id="site_header"></div>` があればその中に、なければページ先頭に自動挿入
+- `<div id="site_footer"></div>` があればその中に、なければページ末尾に自動挿入
+- ヘッダーに works / reports ページへのリンクを含む
+- 【要確認】ヘッダーに含める要素(サイトタイトル/ロゴの有無、ナビゲーションの表示名) → 質問6参照
+
+### works.js
+- `<div class="site_works" data-count="N">` を検出し、`data/templates/workdesign.html` と `data/works/list.json` をfetch(`workdesign.html`は完全なHTML文書のため、`DOMParser`で`.card`要素のみを取り出して使用。5章参照)
+- `list.json` を `date` 降順にソートし、`data-count` が指定されていればその件数だけ、未指定なら全件を、テンプレートの `class` 箇所に差し込んで表示
+- カード(`class="card"`)クリック時: `list.json` の `url`(外部リンク)へ**同一タブで**遷移(`location.href = url`)
+- `card_picture` に挿入する `<img>` の `alt` 属性には `list.json` の `title` の値をそのまま使用する
+
+### reports.js
+- `<div class="site_reports" data-count="N">` を検出し、`data/templates/reportsdesign.html` と `data/reports/list.json` をfetch(取り出し方はworks.jsと共通。5章参照)
+- `date` 降順ソート、`data-count` に応じて表示件数を制御(仕様はworks.jsと共通)
+- カードクリック時: `report.html?file=` + `list.json` の `file` の値(`encodeURIComponent` でエスケープ)へ遷移
+  - `file` の値はパスを含まないファイル名のみ(例: `"test.md"`)。`report.js` 側で `data/reports/` を前置してfetchする
+- `card_picture` に挿入する `<img>` の `alt` 属性には `list.json` の `title` の値をそのまま使用する
+
+### report.js
+- URLの `file` パラメータを取得。空なら `reports.html` にリダイレクト
+- `data/reports/` + `file` をfetchし、`marked.js` でHTMLに変換して`<div id="site_report">`を置き換えて表示
+- `marked.js` は以下を `report.html` の `<head>` で読み込む(バージョン固定、2026年9月時点の最新安定版)
+
+  ```html
+  <script src="https://cdn.jsdelivr.net/npm/marked@18.0.4/lib/marked.umd.js"></script>
+  ```
+
+
+    - ブロック数式: `\[ ... \]`, `$ ... $`
+  - `report.css` で `.katex-display-wrapper` によるレスポンシブ横スクロール対応 (`overflow-x: auto`) を実施
 
 ---
 

@@ -413,3 +413,39 @@
     display: none;
   }
 }
+
+
+/* ===================================================
+   KaTeX 数式表示スタイル
+   =================================================== */
+
+/* ブロック数式ラッパー（中央寄せ & 横スクロール対応） */
+.katex-display-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  margin: 1.5rem 0;
+  padding: 0.6rem 0.5rem;
+  text-align: center;
+  -webkit-overflow-scrolling: touch;
+}
+
+.katex-display-wrapper .katex-display {
+  margin: 0;
+}
+
+/* インライン数式と日本語テキストのバランス調整 */
+#site_report .katex {
+  font-size: 1.05em;
+  text-rendering: auto;
+}
+
+/* 数式エラー時のフォールバック表示 */
+.katex-error {
+  color: #dc2626;
+  background-color: #fef2f2;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.9em;
+}
