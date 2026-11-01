@@ -2,8 +2,8 @@
 
 ## 進捗
 - 形のみのヘッダーフッターを実装（ダークテーマ・スマートヘッダー・SNSリンク対応完了）
-- worksを実装（ジャンル・対応端末・日付右下固定対応）
-- reportsを実装（一覧表示・新着表示）
+- worksを実装（ジャンル・対応端末・日付右下固定・エラーハンドリング対応）
+- reportsを実装（一覧表示・新着表示・エラーハンドリング対応）
 - reportを実装（Markdown自動HTML変換・KaTeX数式表示・前後記事ナビゲーション・report.css適用）
 - index.htmlのデザイン刷新（セクション分け・もっと見るボタン設置）
 
@@ -40,8 +40,8 @@
 │
 ├── js/
 │   ├── headfooter.js       … ヘッダー/フッター自動挿入・スクロール連動
-│   ├── works.js            … 成果物カード生成
-│   ├── reports.js          … レポートカード一覧生成
+│   ├── works.js            … 成果物カード生成 (エラーハンドリング付き)
+│   ├── reports.js          … レポートカード一覧生成 (エラーハンドリング付き)
 │   └── report.js           … 個別レポート描画 (Markdownパース・KaTeX・前後ナビ)
 │
 ├── data/
@@ -139,6 +139,7 @@
 - `genre` (ジャンル) があれば `.card_genre` に表示、未指定なら非表示
 - `device` (対応端末) があれば `.card_device` に表示、未指定なら非表示
 - `.card_footer` 内に `.card_device` と `.card_date` を配置し、カード下部の左右両端に固定
+- **エラーハンドリング**: fetch失敗時やJSON破損時は `console.error` に詳細を出力し、コンテナ内に「作品情報の読み込みに失敗しました。」という案内を表示
 
 ### reports.js
 - `<div class="site_reports" data-count="N">` を検出し、`data/templates/reportsdesign.html` と `data/reports/list.json` をfetch
@@ -146,6 +147,7 @@
 - カード自体が `<a class="card" href="...">` となっており、クリックで `report.html?file=` + `list.json` の `file` の値(`encodeURIComponent` でエスケープ)へ遷移
 - `file` の値はパスを含まないファイル名のみ(例: `"test.md"`)。`report.js` 側で `data/reports/` を前置してfetchする
 - `card_picture` に挿入する `<img>` の `alt` 属性には `list.json` の `title` の値をそのまま使用する
+- **エラーハンドリング**: fetch失敗時やJSON破損時は `console.error` に詳細を出力し、コンテナ内に「活動報告の読み込みに失敗しました。」という案内を表示
 
 ### report.js
 - URLの `file` パラメータを取得。空なら `reports.html` にリダイレクト
@@ -304,11 +306,3 @@ class一覧:
 - **reports.html**: `common.css` → `reports.css` → `reportsdesign.css`
 - **report.html**: `common.css` → `report.css` ＋ KaTeX CSS
 - CSSセレクタのスコープ制限: カードスタイルの干渉を防ぐため、`workdesign.css` は `.site_works .card`、`reportsdesign.css` は `.site_reports .card` で限定定義する
-
----
-
-## 8. 残っている検討事項
-
-大半の仕様は確定しました。残るのは以下のみです(実装のブロッカーではなく、後回しで問題ありません)。
-
-1. `list.json` の取得自体(ファイルは存在するがJSONが壊れている等)が失敗した場合の挙動は未定義。現状は report.js の404表示のみ定義済みで、works.js / reports.js 側のfetch失敗時の挙動(例: 「読み込みに失敗しました」の表示 or 何も表示しない)は未定義。

@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", async () => {
     const containers = document.querySelectorAll(".site_works");
 
@@ -6,61 +5,76 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    const templateResponse = await fetch("data/templates/workdesign.html");
-    const templateHtml = await templateResponse.text();
+    try {
+        const templateResponse = await fetch("data/templates/workdesign.html");
+        if (!templateResponse.ok) {
+            throw new Error(`Template fetch failed: ${templateResponse.status}`);
+        }
+        const templateHtml = await templateResponse.text();
 
-    const parser = new DOMParser();
-    const templateDoc = parser.parseFromString(templateHtml, "text/html");
-    const template = templateDoc.querySelector(".card");
+        const parser = new DOMParser();
+        const templateDoc = parser.parseFromString(templateHtml, "text/html");
+        const template = templateDoc.querySelector(".card");
+        if (!template) {
+            throw new Error("Card template not found in workdesign.html");
+        }
 
-    const listResponse = await fetch("data/works/list.json");
-    const list = await listResponse.json();
+        const listResponse = await fetch("data/works/list.json");
+        if (!listResponse.ok) {
+            throw new Error(`List fetch failed: ${listResponse.status}`);
+        }
+        const list = await listResponse.json();
 
-    list.sort((a, b) => new Date(b.date) - new Date(a.date));
+        list.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    containers.forEach(container => {
-        const count = container.dataset.count;
+        containers.forEach(container => {
+            const count = container.dataset.count;
 
-        const displayList =
-            count === undefined
-                ? list
-                : list.slice(0, Number(count));
+            const displayList =
+                count === undefined
+                    ? list
+                    : list.slice(0, Number(count));
 
-        displayList.forEach(item => {
-            const card = template.cloneNode(true);
+            displayList.forEach(item => {
+                const card = template.cloneNode(true);
 
-            card.href = item.url;
+                card.href = item.url;
 
-            const genreEl = card.querySelector(".card_genre");
-            if (genreEl) {
-                if (item.genre) {
-                    genreEl.textContent = item.genre;
-                } else {
-                    genreEl.style.display = "none";
+                const genreEl = card.querySelector(".card_genre");
+                if (genreEl) {
+                    if (item.genre) {
+                        genreEl.textContent = item.genre;
+                    } else {
+                        genreEl.style.display = "none";
+                    }
                 }
-            }
 
-            card.querySelector(".card_title").textContent = item.title;
+                card.querySelector(".card_title").textContent = item.title;
 
-            const picture = card.querySelector(".card_picture");
-            picture.src = item.picture;
-            picture.alt = item.title;
+                const picture = card.querySelector(".card_picture");
+                picture.src = item.picture;
+                picture.alt = item.title;
 
-            card.querySelector(".card_text").textContent = item.text;
+                card.querySelector(".card_text").textContent = item.text;
 
-            const deviceEl = card.querySelector(".card_device");
-            if (deviceEl) {
-                if (item.device) {
-                    deviceEl.textContent = item.device;
-                } else {
-                    deviceEl.style.display = "none";
+                const deviceEl = card.querySelector(".card_device");
+                if (deviceEl) {
+                    if (item.device) {
+                        deviceEl.textContent = item.device;
+                    } else {
+                        deviceEl.style.display = "none";
+                    }
                 }
-            }
 
-            card.querySelector(".card_date").textContent = item.date;
+                card.querySelector(".card_date").textContent = item.date;
 
-            container.appendChild(card);
+                container.appendChild(card);
+            });
         });
-    });
+    } catch (error) {
+        console.error("作品データの読み込みに失敗しました:", error);
+        containers.forEach(container => {
+            container.innerHTML = '<p class="site_error_message" style="color:#64748b;font-size:0.95rem;padding:16px 0;">作品情報の読み込みに失敗しました。</p>';
+        });
+    }
 });
-
