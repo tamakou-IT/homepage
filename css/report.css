@@ -40,20 +40,24 @@
   margin-bottom: 24px;
 }
 
-.report_not_found_link {
+#site_report .report_not_found_link {
   display: inline-block;
-  padding: 10px 24px;
+  padding: 12px 28px;
   background-color: #2f80ed;
-  color: #ffffff;
-  text-decoration: none;
+  color: #ffffff !important;
+  text-decoration: none !important;
   border-radius: 6px;
-  font-weight: 500;
-  transition: background-color 0.2s, transform 0.2s;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(47, 128, 237, 0.25);
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
-.report_not_found_link:hover {
+#site_report .report_not_found_link:hover {
   background-color: #1b66ca;
+  color: #ffffff !important;
+  text-decoration: none !important;
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(47, 128, 237, 0.35);
 }
 
 /* ------------------------------------------------------------

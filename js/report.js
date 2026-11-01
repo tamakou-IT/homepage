@@ -8,15 +8,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!reportContainer) return;
 
     const urlParams = new URLSearchParams(window.location.search);
-    const fileName = urlParams.get("file");
+    const rawFileName = urlParams.get("file");
 
     // 1. file パラメータが空の場合は reports.html にリダイレクト
-    if (!fileName || fileName.trim() === "") {
+    if (!rawFileName || rawFileName.trim() === "") {
         window.location.href = "reports.html";
         return;
     }
 
-    // セキュリティ対策: パス走査（../など）や不正な文字を防止
+    // パス指定が付いている場合でも安全にファイル名部分を抽出 (例: data/reports/test.md -> test.md)
+    let fileName = rawFileName.trim().replace(/^[./\\]*(data[./\\]+reports[./\\]+)?/, "");
+
+    // セキュリティ対策: パス走査（../など）による親ディレクトリ脱出を防止
     if (fileName.includes("..") || fileName.includes("/") || fileName.includes("\\")) {
         showNotFound();
         return;
@@ -24,7 +27,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         // 2. data/reports/ から Markdown ファイルを取得
-        const response = await fetch(`data/reports/${encodeURIComponent(fileName)}`);
+        // 環境によるURLエンコードの差異を吸収するためフォールバックを実装
+        let response = await fetch(`data/reports/${encodeURIComponent(fileName)}`);
+
+        if (!response.ok) {
+            response = await fetch(`data/reports/${fileName}`);
+        }
+        if (!response.ok) {
+            try {
+                response = await fetch(`data/reports/${decodeURIComponent(fileName)}`);
+            } catch (_) {}
+        }
 
         if (!response.ok) {
             showNotFound();
@@ -163,8 +176,25 @@ document.addEventListener("DOMContentLoaded", async () => {
             // 日付の降順（新しい順）にソート
             list.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-            const currentIndex = list.findIndex(item => item.file === currentFile);
-            if (currentIndex === -1) return;
+            const decodedCurrent = decodeURIComponent(currentFile);
+            const currentIndex = list.findIndex(item => item.file === currentFile || item.file === decodedCurrent);
+
+            // list.json に登録されていない単独記事の場合でも「一覧へ戻る」ボタンを表示
+            if (currentIndex === -1) {
+                const nav = document.createElement("nav");
+                nav.className = "report_pagination";
+                nav.setAttribute("aria-label", "ナビゲーション");
+                nav.innerHTML = `
+                    <div class="report_pagination_placeholder"></div>
+                    <a class="report_pagination_list" href="reports.html" aria-label="レポート一覧へ戻る" title="レポート一覧へ">
+                        <i class="fa-solid fa-grip"></i>
+                        <span>一覧へ</span>
+                    </a>
+                    <div class="report_pagination_placeholder"></div>
+                `;
+                container.appendChild(nav);
+                return;
+            }
 
             // 新しい記事（降順なのでインデックスが -1）
             const nextArticle = currentIndex > 0 ? list[currentIndex - 1] : null;
