@@ -6,7 +6,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-        const templateResponse = await fetch("data/templates/reportsdesign.html");
+        const [templateResponse, listResponse, categoriesResponse] = await Promise.all([
+            fetch("data/templates/reportsdesign.html"),
+            fetch("data/reports/list.json"),
+            fetch("data/reports/categories.json").catch(() => null)
+        ]);
+
         if (!templateResponse.ok) {
             throw new Error(`Template fetch failed: ${templateResponse.status}`);
         }
@@ -19,34 +24,81 @@ document.addEventListener("DOMContentLoaded", async () => {
             throw new Error("Card template not found in reportsdesign.html");
         }
 
-        const listResponse = await fetch("data/reports/list.json");
         if (!listResponse.ok) {
             throw new Error(`List fetch failed: ${listResponse.status}`);
         }
         const list = await listResponse.json();
 
-        list.sort((a, b) => new Date(b.date) - new Date(a.date));
+        let categoriesData = { default: "images/reports/test.jpg", categories: {} };
+        if (categoriesResponse && categoriesResponse.ok) {
+            try {
+                categoriesData = await categoriesResponse.json();
+            } catch (e) {
+                console.warn("Failed to parse categories.json:", e);
+            }
+        }
+
+        // visible === false の記事を除外し、日付降順でソート
+        const visibleList = list.filter(item => item.visible !== false);
+        visibleList.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         containers.forEach(container => {
             const count = container.dataset.count;
 
             const displayList =
                 count === undefined
-                    ? list
-                    : list.slice(0, Number(count));
+                    ? visibleList
+                    : visibleList.slice(0, Number(count));
 
             displayList.forEach(item => {
                 const card = template.cloneNode(true);
 
                 card.href = `report.html?file=${encodeURIComponent(item.file)}`;
 
-                card.querySelector(".card_title").textContent = item.title;
+                // タイトル
+                const titleEl = card.querySelector(".card_title");
+                if (titleEl) {
+                    titleEl.textContent = item.title;
+                }
 
-                const picture = card.querySelector(".card_picture");
-                picture.src = item.picture;
-                picture.alt = item.title;
+                // 画像の判定: picture優先 -> 種別アイコン -> デフォルトアイコン
+                const pictureEl = card.querySelector(".card_picture");
+                if (pictureEl) {
+                    let imagePath = (item.picture && item.picture.trim() !== "") ? item.picture.trim() : null;
+                    if (!imagePath) {
+                        const catConfig = categoriesData.categories?.[item.category];
+                        imagePath = catConfig?.icon || categoriesData.default || "images/reports/test.jpg";
+                    }
+                    pictureEl.src = imagePath;
+                    pictureEl.alt = item.title || "";
+                }
 
-                card.querySelector(".card_date").textContent = item.date;
+                // 日付
+                const dateEl = card.querySelector(".card_date");
+                if (dateEl) {
+                    dateEl.textContent = item.date || "";
+                }
+
+                // 種別
+                const categoryEl = card.querySelector(".card_category");
+                if (categoryEl) {
+                    if (item.category && item.category.trim() !== "") {
+                        categoryEl.textContent = item.category.trim();
+                    } else {
+                        categoryEl.style.display = "none";
+                    }
+                }
+
+                // 著者
+                const authorEl = card.querySelector(".card_author");
+                const authorNameEl = card.querySelector(".card_author_name");
+                if (authorEl && authorNameEl) {
+                    if (item.author && item.author.trim() !== "") {
+                        authorNameEl.textContent = item.author.trim();
+                    } else {
+                        authorEl.style.display = "none";
+                    }
+                }
 
                 container.appendChild(card);
             });

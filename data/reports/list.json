@@ -2,37 +2,91 @@
   {
     "file": "情報技術サークルHP.md",
     "title": "情報技術サークルHP",
-    "picture": "images/reports/test.jpg",
-    "date": "2026-11-01"
+    "author": "Healer",
+    "category": "チームプロジェクト",
+    "picture": "",
+    "date": "2026-11-01",
+    "visible": true
   },
   {
     "file": "データサイエンスコンテスト参加記.md",
     "title": "データサイエンスコンテスト参加記",
-    "picture": "images/reports/test.jpg",
-    "date": "2026-10-15"
+    "author": "Healer",
+    "category": "大会参加記",
+    "picture": "",
+    "date": "2026-10-15",
+    "visible": true
   },
   {
     "file": "SuperCon参加記.md",
     "title": "SuperCon参加記",
-    "picture": "images/reports/test.jpg",
-    "date": "2026-08-21"
+    "author": "Healer",
+    "category": "大会参加記",
+    "picture": "",
+    "date": "2026-08-21",
+    "visible": true
   },
   {
     "file": "創立の経緯.md",
     "title": "創立の経緯",
-    "picture": "images/reports/test.jpg",
-    "date": "2026-07-17"
-  },
-  {
-    "file": "THBCからの取材.md",
-    "title": "THBCからの取材",
-    "picture": "images/reports/test.jpg",
-    "date": "2026-05-20"
+    "author": "Healer",
+    "category": "お知らせ",
+    "picture": "",
+    "date": "2026-07-17",
+    "visible": true
   },
   {
     "file": "文化祭展示.md",
     "title": "文化祭展示",
-    "picture": "images/reports/test.jpg",
-    "date": "2026-07-12"
+    "author": "Healer",
+    "category": "行事プロジェクト",
+    "picture": "",
+    "date": "2026-07-12",
+    "visible": true
+  },
+  {
+    "file": "THBCからの取材.md",
+    "title": "THBCからの取材",
+    "author": "Healer",
+    "category": "その他",
+    "picture": "",
+    "date": "2026-05-20",
+    "visible": true
+  },
+  {
+    "file": "test.md",
+    "title": "テスト記事",
+    "author": "Healer",
+    "category": "その他",
+    "picture": "",
+    "date": "2026-11-01",
+    "visible": false
+  },
+  {
+    "file": "サークル紹介サイト_仕様書.md",
+    "title": "サークル紹介サイト 仕様書",
+    "author": "Kosei2828r",
+    "category": "技術解説",
+    "picture": "",
+    "date": "2026-11-02",
+    "visible": false
+  },
+  {
+    "file": "SuperCon2026 提出プログラムの解法解説.md",
+    "title": "SuperCon2026 提出プログラムの解法解説",
+    "author": "Healer",
+    "category": "技術解説",
+    "picture": "",
+    "date": "2026-08-25",
+    "visible": false
+  },
+  {
+    "file": "情報技術サークルとは.md",
+    "title": "情報技術サークルとは",
+    "author": "Healer",
+    "category": "お知らせ",
+    "picture": "",
+    "date": "2026-05-01",
+    "visible": false
   }
 ]

@@ -3,7 +3,7 @@
 ## 進捗
 - 形のみのヘッダーフッターを実装（ダークテーマ・スマートヘッダー・SNSリンク対応完了）
 - worksを実装（ジャンル・対応端末・日付右下固定・エラーハンドリング対応）
-- reportsを実装（一覧表示・新着表示・エラーハンドリング対応）
+- reportsを実装（一覧表示・新着表示・メタデータ拡張[著者/種別/表示制御]・種別アイコン対応・エラーハンドリング対応）
 - reportを実装（Markdown自動HTML変換・KaTeX数式表示・前後記事ナビゲーション・report.css適用）
 - index.htmlのデザイン刷新（セクション分け・もっと見るボタン設置）
 
@@ -51,7 +51,8 @@
 │   ├── works/
 │   │   └── list.json
 │   └── reports/
-│       ├── list.json
+│       ├── categories.json      … レポート種別・アイコン対応定義
+│       ├── list.json            … レポート一覧・メタデータ管理
 │       └── *.md                 … レポート本文
 │
 └── images/
@@ -142,11 +143,15 @@
 - **エラーハンドリング**: fetch失敗時やJSON破損時は `console.error` に詳細を出力し、コンテナ内に「作品情報の読み込みに失敗しました。」という案内を表示
 
 ### reports.js
-- `<div class="site_reports" data-count="N">` を検出し、`data/templates/reportsdesign.html` と `data/reports/list.json` をfetch
+- `<div class="site_reports" data-count="N">` を検出し、`data/templates/reportsdesign.html`、`data/reports/list.json`、`data/reports/categories.json` を並行fetch
+- **表示制御 (`visible`)**: `visible === false` の記事を一覧から除外(`visible: true` または未指定のみ表示)
 - `date` 降順ソート、`data-count` に応じて表示件数を制御(`index.html` では新着4件、`reports.html` では全件)
 - カード自体が `<a class="card" href="...">` となっており、クリックで `report.html?file=` + `list.json` の `file` の値(`encodeURIComponent` でエスケープ)へ遷移
 - `file` の値はパスを含まないファイル名のみ(例: `"test.md"`)。`report.js` 側で `data/reports/` を前置してfetchする
+- **画像フォールバック**: `picture` が未指定の場合は `categories.json` で定義された種別のアイコン画像、種別も未定義なら `default` アイコンを使用(`picture` 指定時はそちらを最優先)
 - `card_picture` に挿入する `<img>` の `alt` 属性には `list.json` の `title` の値をそのまま使用する
+- **種別バッジ (`category`)**: `category` が設定されていれば `.card_category` に表示、未設定なら非表示
+- **著者情報 (`author`)*: `author` が設定されていれば `.card_author_name` に表示、未設定なら `.card_author` コンテナごと非表示
 - **エラーハンドリング**: fetch失敗時やJSON破損時は `console.error` に詳細を出力し、コンテナ内に「活動報告の読み込みに失敗しました。」という案内を表示
 
 ### report.js
@@ -215,8 +220,19 @@
 <body>
   <a class="card" href="">
     <img class="card_picture" src="" alt="">
-    <p class="card_title"></p>
-    <p class="card_date"></p>
+    <div class="card_content">
+      <div class="card_header">
+        <span class="card_category"></span>
+        <p class="card_date"></p>
+      </div>
+      <p class="card_title"></p>
+      <div class="card_footer">
+        <span class="card_author">
+          <i class="fa-solid fa-pen-nib"></i>
+          <span class="card_author_name"></span>
+        </span>
+      </div>
+    </div>
   </a>
 </body>
 </html>
@@ -244,12 +260,18 @@ class一覧(JSで中身を置換する対象):
 ### data/templates/reportsdesign.html / css/reportsdesign.css
 class一覧:
 
-| class名        | 内容                                                 |
-| -------------- | ---------------------------------------------------- |
-| `card`         | カード全体 (`<a>`タグ)。`report.html?file=...` にリンク |
-| `card_picture` | サムネイル画像                                       |
-| `card_title`   | タイトル                                             |
-| `card_date`    | 日付                                                 |
+| class名             | 内容                                                 |
+| ------------------- | ---------------------------------------------------- |
+| `card`              | カード全体 (`<a>`タグ)。`report.html?file=...` にリンク |
+| `card_picture`      | サムネイル画像                                       |
+| `card_content`      | 右側コンテンツラッパー                               |
+| `card_header`       | 上部ヘッダー(種別バッジ＋日付)                       |
+| `card_category`     | 種別バッジ(任意)                                     |
+| `card_date`         | 日付                                                 |
+| `card_title`        | タイトル                                             |
+| `card_footer`       | 下部フッター(著者情報コンテナ)                       |
+| `card_author`       | 著者コンテナ(アイコン＋名前)                         |
+| `card_author_name`  | 著者名テキスト                                       |
 
 ---
 
@@ -273,20 +295,52 @@ class一覧:
 
 - `genre` / `device` は任意項目(未指定時はHTML上で非表示)
 
+### data/reports/categories.json (種別定義ファイル)
+
+種別ごとのアイコン画像パスおよびデフォルトアイコンを定義します。
+
+```json
+{
+  "default": "images/reports/test.jpg",
+  "categories": {
+    "大会参加記": { "icon": "images/reports/test.jpg" },
+    "技術解説": { "icon": "images/reports/test.jpg" },
+    "サークル活動": { "icon": "images/reports/test.jpg" },
+    "お知らせ": { "icon": "images/reports/test.jpg" }
+  }
+}
+```
+
 ### data/reports/list.json
 
 ```json
 [
   {
+    "file": "情報技術サークルHP.md",
+    "title": "情報技術サークルHP",
+    "author": "Amafu",
+    "category": "サークル活動",
+    "picture": "images/reports/test.jpg",
+    "date": "2026-11-01",
+    "visible": true
+  },
+  {
     "file": "test.md",
-    "title": "hogehoge",
-    "picture": "images/reports/test.png",
-    "date": "2023-01-15"
+    "title": "テスト記事",
+    "author": "管理者",
+    "category": "お知らせ",
+    "picture": "",
+    "date": "2026-11-01",
+    "visible": false
   }
 ]
 ```
 
 - `file`: `data/reports/` 直下のmdファイル名のみ(パスなし)
+- `author`: 執筆者のハンドルネーム(任意、未設定時は非表示)
+- `category`: 記事の種別(`categories.json` に登録された種別名。任意、未設定時は非表示)
+- `picture`: サムネイル画像パス(任意。空の場合は種別アイコン、それもなければデフォルトアイコンへフォールバック)
+- `visible`: `true` または `false`(省略時は `true`)。`false` の場合はカード一覧および前後の記事送りから除外され、サイト内リンクでのみ閲覧可能
 - `text`(概要文)は含めない
 
 ---

@@ -1,0 +1,23 @@
+{
+  "default": "images/reports/test.jpg",
+  "categories": {
+    "大会参加記": {
+      "icon": "images/reports/test.jpg"
+    },
+    "技術解説": {
+      "icon": "images/reports/test.jpg"
+    },
+    "チームプロジェクト": {
+      "icon": "images/reports/test.jpg"
+    },
+    "行事プロジェクト": {
+      "icon": "images/reports/test.jpg"
+    },
+    "お知らせ": {
+      "icon": "images/reports/test.jpg"
+    },
+    "その他": {
+      "icon": "images/reports/test.jpg"
+    }
+  }
+}

@@ -172,14 +172,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             const listRes = await fetch("data/reports/list.json");
             if (!listRes.ok) return;
 
-            const list = await listRes.json();
-            // 日付の降順（新しい順）にソート
+            const rawList = await listRes.json();
+            // visible !== false の記事のみを対象として日付降順ソート
+            const list = rawList.filter(item => item.visible !== false);
             list.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             const decodedCurrent = decodeURIComponent(currentFile);
             const currentIndex = list.findIndex(item => item.file === currentFile || item.file === decodedCurrent);
 
-            // list.json に登録されていない単独記事の場合でも「一覧へ戻る」ボタンを表示
+            // list.json に登録されていない（または非表示の）記事の場合でも「一覧へ戻る」ボタンを表示
             if (currentIndex === -1) {
                 const nav = document.createElement("nav");
                 nav.className = "report_pagination";
