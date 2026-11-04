@@ -16,26 +16,35 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    // パス指定が付いている場合でも安全にファイル名部分を抽出 (例: data/reports/test.md -> test.md)
+        // パス指定が付いている場合でも安全に相対パスを正規化 (例: data/reports/2026/test.md -> 2026/test.md)
     let fileName = rawFileName.trim().replace(/^[./\\]*(data[./\\]+reports[./\\]+)?/, "");
+    fileName = fileName.replace(/\\/g, "/"); // バックスラッシュをスラッシュに統一
 
-    // セキュリティ対策: パス走査（../など）による親ディレクトリ脱出を防止
-    if (fileName.includes("..") || fileName.includes("/") || fileName.includes("\\")) {
+    // セキュリティ対策: 親ディレクトリ脱出（..）や絶対パス（/から始まる）を防止
+    // 許容フォーマット: "記事名.md" または "YYYY/記事名.md" などの安全な相対パス
+    if (
+        fileName.includes("..") ||
+        fileName.startsWith("/") ||
+        !/^[a-zA-Z0-9_-　-〿぀-ゟ゠-ヿ一-鿿＀-￯s/.]+\.md$/i.test(fileName)
+    ) {
         showNotFound();
         return;
     }
 
     try {
         // 2. data/reports/ から Markdown ファイルを取得
-        // 環境によるURLエンコードの差異を吸収するためフォールバックを実装
-        let response = await fetch(`data/reports/${encodeURIComponent(fileName)}`);
+        // パス区切りスラッシュを維持して各セグメントを安全にエンコード
+        const encodePath = (p) => p.split("/").map(seg => encodeURIComponent(seg)).join("/");
+        const decodedPath = decodeURI(fileName);
+
+        let response = await fetch(`data/reports/${encodePath(fileName)}`);
 
         if (!response.ok) {
             response = await fetch(`data/reports/${fileName}`);
         }
         if (!response.ok) {
             try {
-                response = await fetch(`data/reports/${decodeURIComponent(fileName)}`);
+                response = await fetch(`data/reports/${decodedPath}`);
             } catch (_) {}
         }
 

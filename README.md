@@ -157,7 +157,7 @@
 ### report.js
 - URLの `file` パラメータを取得。空なら `reports.html` にリダイレクト
 - パス走査(`..` や `/` など)が含まれる場合は不正アクセス防止のため404表示
-- `data/reports/` + `file` をfetchし、`marked.js` でHTMLに変換して `<div id="site_report">` に描画
+- `data/reports/` + `file`（例: `data/reports/2026/xxx.md`）をfetchし、`marked.js` でHTMLに変換して `<div id="site_report">` に描画
 - 最初の見出し (`h1`) を取得し、`document.title` に「見出し | 情報技術サークル」として反映
 - fetchが失敗した場合(該当mdファイルが存在しない等)は `reports.html` へリダイレクトせず、3.4節の「お探しのページは見つかりませんでした」メッセージを表示する
 - **KaTeX 数式表示対応**:

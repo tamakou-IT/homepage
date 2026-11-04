@@ -1,6 +1,6 @@
 [
   {
-    "file": "情報技術サークルHP.md",
+    "file": "2026/情報技術サークルHP制作.md",
     "title": "情報技術サークルHP",
     "author": "Healer",
     "category": "チームプロジェクト",
@@ -9,7 +9,7 @@
     "visible": true
   },
   {
-    "file": "データサイエンスコンテスト参加記.md",
+    "file": "2026/データサイエンスコンテスト参加記.md",
     "title": "データサイエンスコンテスト参加記",
     "author": "Healer",
     "category": "大会参加記",
@@ -18,7 +18,7 @@
     "visible": true
   },
   {
-    "file": "SuperCon参加記.md",
+    "file": "2026/SuperCon参加記.md",
     "title": "SuperCon参加記",
     "author": "Healer",
     "category": "大会参加記",
@@ -27,7 +27,7 @@
     "visible": true
   },
   {
-    "file": "創立の経緯.md",
+    "file": "2026/創立の経緯.md",
     "title": "創立の経緯",
     "author": "Healer",
     "category": "お知らせ",
@@ -36,7 +36,7 @@
     "visible": true
   },
   {
-    "file": "文化祭展示.md",
+    "file": "2026/文化祭展示.md",
     "title": "文化祭展示",
     "author": "Healer",
     "category": "行事プロジェクト",
@@ -45,7 +45,7 @@
     "visible": true
   },
   {
-    "file": "THBCからの取材.md",
+    "file": "2026/THBCからの取材.md",
     "title": "THBCからの取材",
     "author": "Healer",
     "category": "その他",
@@ -54,7 +54,7 @@
     "visible": true
   },
   {
-    "file": "test.md",
+    "file": "2026/test.md",
     "title": "テスト記事",
     "author": "Healer",
     "category": "その他",
@@ -63,7 +63,7 @@
     "visible": false
   },
   {
-    "file": "サークル紹介サイト_仕様書.md",
+    "file": "2026/サークル紹介サイト_仕様書.md",
     "title": "サークル紹介サイト 仕様書",
     "author": "Kosei2828r",
     "category": "技術解説",
@@ -72,7 +72,7 @@
     "visible": false
   },
   {
-    "file": "SuperCon2026 提出プログラムの解法解説.md",
+    "file": "2026/SuperCon2026 提出プログラムの解法解説.md",
     "title": "SuperCon2026 提出プログラムの解法解説",
     "author": "Healer",
     "category": "技術解説",
@@ -81,7 +81,7 @@
     "visible": false
   },
   {
-    "file": "情報技術サークルとは.md",
+    "file": "2026/情報技術サークルとは.md",
     "title": "情報技術サークルとは",
     "author": "Healer",
     "category": "お知らせ",
