@@ -4,7 +4,7 @@
 
 ## SuperConとは
 
-SuperConは、高校生や高専生を対象とした「[Supercomputing Programming Contest](https://www.supercon.cii.isct.ac.jp/attwiki/index.php )」です。「夏の電脳甲子園」や「スパコン」という愛称でも知られています。1995年に始まり、2〜3人のチームで、最先端の科学技術に関する難問を解くプログラムを作成し、その実行速度と正確さを競います（[大会規則](https://www.supercon.cii.isct.ac.jp/attwiki/?plugin=attach&refer=SupercomputingContest2026&openfile=kisoku2026.pdf )）。
+SuperConは、高校生や高専生を対象とした「[Supercomputing Programming Contest（SuperCon）](https://www.supercon.cii.isct.ac.jp/attwiki/index.php )」です。「夏の電脳甲子園」とも呼ばれています。1995年に始まり、2〜3人のチームで、最先端の科学技術に関する難問を解くプログラムを作成し、その実行速度と正確さを競います（[大会規則](https://www.supercon.cii.isct.ac.jp/attwiki/?plugin=attach&refer=SupercomputingContest2026&openfile=kisoku2026.pdf )）。
 
 本戦は4日間にわたって行われ、2026年はスーパーコンピュータ「[富岳](https://www.r-ccs.riken.jp/fugaku/ )」が使用されました。
 
