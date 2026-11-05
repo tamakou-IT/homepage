@@ -794,3 +794,40 @@
   padding: 0;
   background: transparent;
 }
+
+/* スマホ時の前後記事ナビゲーション調整 */
+@media (max-width: 600px) {
+  .report_pagination {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 36px;
+    padding-top: 24px;
+  }
+
+  .report_pagination_link {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+  }
+
+  .report_pagination_list {
+    order: 3;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 16px;
+    justify-content: center;
+  }
+
+  .report_pagination_prev {
+    order: 1;
+  }
+
+  .report_pagination_next {
+    order: 2;
+  }
+
+  .report_pagination_placeholder {
+    display: none;
+  }
+}

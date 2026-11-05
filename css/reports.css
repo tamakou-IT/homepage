@@ -1,9 +1,13 @@
-
+/* タイトル */
 
 h1 {
     text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
     margin: 56px 0 12px;
+    letter-spacing: .05em;
 }
+
 h1::after {
     content: "";
     display: block;
@@ -16,6 +20,7 @@ h1::after {
     border-radius: 999px;
     background: #2f80ed;
 }
+
 .site_reports {
     width: min(920px, calc(100% - 48px));
     margin: 48px auto 64px;
@@ -23,4 +28,29 @@ h1::after {
     display: flex;
     flex-direction: column;
     gap: 24px;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.7rem;
+        margin-top: 40px;
+    }
+
+    .site_reports {
+        width: calc(100% - 32px);
+        margin: 32px auto 48px;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+        margin-top: 32px;
+    }
+
+    .site_reports {
+        width: calc(100% - 24px);
+        gap: 14px;
+    }
 }
