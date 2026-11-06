@@ -54,15 +54,6 @@
     "visible": true
   },
   {
-    "file": "2026/test.md",
-    "title": "テスト記事",
-    "author": "Healer",
-    "category": "その他",
-    "picture": "",
-    "date": "2026-11-01",
-    "visible": false
-  },
-  {
     "file": "2026/サークル紹介サイト_仕様書.md",
     "title": "サークル紹介サイト 仕様書",
     "author": "Kosei2828r",
@@ -87,6 +78,15 @@
     "category": "お知らせ",
     "picture": "",
     "date": "2026-05-01",
+    "visible": false
+  },
+    {
+    "file": "2026/test.md",
+    "title": "Markdown記法・対応機能 実例チートシート",
+    "author": "Healer",
+    "category": "技術解説",
+    "picture": "",
+    "date": "2026-11-01",
     "visible": false
   }
 ]
