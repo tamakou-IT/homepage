@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (
         fileName.includes("..") ||
         fileName.startsWith("/") ||
-        !/^[a-zA-Z0-9_-　-〿぀-ゟ゠-ヿ一-鿿＀-￯s/.]+\.md$/i.test(fileName)
+        !/^[a-zA-Z0-9_\-\s　-〿぀-ゟ゠-ヿ一-鿿＀-￯/.]+\.md$/i.test(fileName)
     ) {
         showNotFound();
         return;
@@ -73,6 +73,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // 5. 目次 (TOC) の生成・挿入
         processTableOfContents(reportContainer);
+
+        // 6-2. コードブロックのコピーボタン初期化
+        initCodeCopyButtons(reportContainer);
 
         // 6. コードブロックのシンタックスハイライト (highlight.js)
         if (window.hljs) {
@@ -267,6 +270,68 @@ document.addEventListener("DOMContentLoaded", async () => {
             renderer: renderer
         });
         window.__marked_custom_extensions_registered = true;
+    }
+
+
+    // コードブロックのコピーボタン設置
+    function initCodeCopyButtons(container) {
+        const preBlocks = container.querySelectorAll("pre");
+        preBlocks.forEach((pre) => {
+            // Mermaidプレビューや既にボタンがある場合は除外
+            if (pre.classList.contains("mermaid") || pre.closest(".mermaid-container") || pre.querySelector(".code-copy-btn")) {
+                return;
+            }
+            const codeEl = pre.querySelector("code");
+            if (!codeEl) return;
+
+            const copyBtn = document.createElement("button");
+            copyBtn.type = "button";
+            copyBtn.className = "code-copy-btn";
+            copyBtn.setAttribute("aria-label", "コードをコピー");
+            copyBtn.title = "コードをコピー";
+            copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i><span>コピー</span>';
+
+            let timeoutId = null;
+
+            copyBtn.addEventListener("click", async () => {
+                const textToCopy = (codeEl.textContent || codeEl.innerText || "").replace(/\n$/, "");
+                try {
+                    if (navigator.clipboard && window.isSecureContext) {
+                        await navigator.clipboard.writeText(textToCopy);
+                    } else {
+                        // 非安全コンテキスト等のフォールバック
+                        const textarea = document.createElement("textarea");
+                        textarea.value = textToCopy;
+                        textarea.style.position = "fixed";
+                        textarea.style.left = "-9999px";
+                        textarea.style.top = "0";
+                        document.body.appendChild(textarea);
+                        textarea.focus();
+                        textarea.select();
+                        document.execCommand("copy");
+                        textarea.remove();
+                    }
+
+                    // フィードバック表示
+                    copyBtn.classList.add("copied");
+                    copyBtn.innerHTML = '<i class="fa-solid fa-check"></i><span>コピー完了</span>';
+
+                    if (timeoutId) clearTimeout(timeoutId);
+                    timeoutId = setTimeout(() => {
+                        copyBtn.classList.remove("copied");
+                        copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i><span>コピー</span>';
+                    }, 2000);
+                } catch (err) {
+                    console.error("クリップボードへのコピーに失敗しました:", err);
+                    copyBtn.innerHTML = '<i class="fa-solid fa-xmark"></i><span>失敗</span>';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i><span>コピー</span>';
+                    }, 2000);
+                }
+            });
+
+            pre.appendChild(copyBtn);
+        });
     }
 
     // アラート記法 (> [!NOTE] 等) の後処理

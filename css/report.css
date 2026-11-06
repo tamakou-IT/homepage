@@ -235,6 +235,7 @@
 
 /* コードブロック (pre code) */
 #site_report pre {
+  position: relative;
   margin: 1.5em 0;
   padding: 1.2em 1.4em;
   background-color: #1e293b;
@@ -830,4 +831,80 @@
   .report_pagination_placeholder {
     display: none;
   }
+}
+
+/* ===================================================
+   コードブロック コピーボタン
+   =================================================== */
+.code-copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94a3b8;
+  background-color: rgba(30, 41, 59, 0.9);
+  border: 1px solid #475569;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    transform 0.15s ease;
+  backdrop-filter: blur(4px);
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* コードブロックホバー時、またはフォーカス時にボタンを表示 */
+#site_report pre:hover .code-copy-btn,
+#site_report pre:focus-within .code-copy-btn,
+.code-copy-btn.copied {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* スマホ・タッチ端末では常に表示 */
+@media (hover: none) {
+  .code-copy-btn {
+    opacity: 0.9;
+    visibility: visible;
+  }
+}
+
+.code-copy-btn:hover {
+  color: #ffffff;
+  background-color: #475569;
+  border-color: #64748b;
+  opacity: 1;
+}
+
+.code-copy-btn:active {
+  transform: scale(0.96);
+}
+
+.code-copy-btn i {
+  font-size: 0.85rem;
+}
+
+/* コピー完了フィードバック状態 */
+.code-copy-btn.copied {
+  color: #10b981;
+  background-color: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  opacity: 1;
+}
+
+.code-copy-btn.copied i {
+  color: #10b981;
 }
