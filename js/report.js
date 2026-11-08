@@ -428,7 +428,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!tocPlaceholderNode) return;
 
         // 見出し（h2, h3, h4）を収集
-        const headings = container.querySelectorAll("h2, h3, h4");
+        // .no-toc クラス、折りたたみ (<details>)、記事・作品カード (.article-card) 内の見出しは除外
+        const allHeadings = Array.from(container.querySelectorAll("h2, h3, h4"));
+        const headings = allHeadings.filter(heading => {
+            if (heading.classList.contains("no-toc")) return false;
+            if (heading.closest("details, .article-card")) return false;
+            return true;
+        });
+
         if (headings.length === 0) {
             if (tocPlaceholderNode.parentNode) tocPlaceholderNode.remove();
             return;

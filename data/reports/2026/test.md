@@ -4,7 +4,7 @@
 
 記事を執筆する際は、ここにあるコードをコピー＆ペーストしてご利用いただけます。
 
-## 目次
+<h2 class="no-toc">目次</h2>
 
 ```markdown
 [TOC]
@@ -30,12 +30,19 @@
 #### 見出し 4（小見出し）
 ```
 
+**【表示プレビュー】**
+<h1 class="no-toc">見出し 1（記事タイトル相当）</h1>
+<h2 class="no-toc">見出し 2（大見出し）</h2>
+<h3 class="no-toc">見出し 3（中見出し）</h3>
+<h4 class="no-toc">見出し 4（小見出し）</h4>
+
 ---
 
 ### 1-2. 太字・斜体・取り消し線・インライン
 重要な語句を強調したり、打ち消し線を入れたりします。
 インラインはコードの変数名を記述する記法です。
-
+> [!NOTE]
+> 視認性向上やエラー防止のため、前後に半角改行の入力を推奨します。
 ```markdown
 - **太字（Bold）** です。
 - *斜体（Italic）* です。
@@ -82,7 +89,9 @@
 ## 2. リスト・表組み・引用・区切り線
 
 ### 2-1. 箇条書き・番号付きリスト・タスクリスト
-階層を持った箇条書きや番号付き手順、およびチェックボックス付きタスクリストを作成できます。入れ子にする場合は、半角スペース2〜4個でインデントします。（<kbd>Tab</kbd>を使うと簡単！）
+階層を持った箇条書きや番号付き手順、およびチェックボックス付きタスクリストを作成できます。
+> [!TIP]
+> 入れ子構造にするときは、<kbd>Tab</kbd> でインデントしよう！
 
 ```markdown
 - 箇条書きアイテム A
@@ -113,7 +122,7 @@
 
 ---
 
-### 2-2. テーブル（表組み・GFM対応）
+### 2-2. テーブル（表組み）
 パイプ記号 `|` で表を作成します。コロン `:` の位置で「左寄せ」「中央揃え」「右寄せ」を指定できます。
 
 ```markdown
@@ -154,7 +163,7 @@
 ハイフン（`-`）、アスタリスク（`*`）、またはアンダースコア（`_`）を**単独の行に3個以上**並べることで記述できます。記号の間に半角スペースを挟むことも可能です。
 
 > [!NOTE]
-> 前後の段落との間に空行がない場合、ハイフン（`---`）直上のテキストが見出し（h2）として認識されてしまうことがあります。区切り線の**前後は1行空ける**のがベストプラクティスです。
+> 前後の段落との間に空行がない場合、ハイフン（`---`）直上のテキストが見出し（h2）として認識されてしまうことがあります。区切り線の **前後は1行空ける** のがベストプラクティスです。
 
 ```markdown
 ---
@@ -170,7 +179,110 @@ ___
 ___
 - - -
 
-## 3. GitHub風アラート・コールアウト記法
+## 3. メディア・リンクの埋め込み
+
+### 3-1. リンク
+```markdown
+- [情報技術サークル ホームへ戻る](index.html)
+- 📄 [SuperCon2026 チームレポート PDFを開く](images/pdf/SuperCon2026_チーム15レポート.pdf)
+- 外部サイト: [Google](https://www.google.com)
+- URL自動リンク: https://github.com
+```
+
+**【表示プレビュー】**
+- [情報技術サークル ホームへ戻る](index.html)
+- 📄 [SuperCon2026 チームレポート PDFを開く](images/pdf/SuperCon2026_チーム15レポート.pdf)
+- 外部サイト: [Google](https://www.google.com)
+- URL自動リンク: https://github.com
+
+---
+
+### 3-2. 画像
+画像の幅や高さは直接指定できず、枠に収まる最大のサイズで表示されます。
+
+```markdown
+![サークルロゴ](images/icon.svg)
+```
+<details class="md-details">
+<summary>【表示プレビュー】</summary>
+
+![サークルロゴ](images/icon.svg)
+
+</details>
+
+---
+
+## 4. コードブロック
+
+言語名を指定することで、自動的にコードのキーワードが色分けされます。右上のコピーボタンからコード全体をワンクリックでコピーできます。
+
+````markdown
+```python
+def fibonacci(n: int) -> int:
+    """フィボナッチ数を再帰的に計算する"""
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+print([fibonacci(i) for i in range(10)])
+```
+````
+
+**【表示プレビュー】**
+
+```python
+def fibonacci(n: int) -> int:
+    """フィボナッチ数を再帰的に計算する"""
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+print([fibonacci(i) for i in range(10)])
+```
+
+
+<details class="md-details">
+<summary>JavaScriptの例</summary>
+
+````markdown
+```javascript
+// レポートのデータを取得して描画するサンプル
+async function loadReport(fileName) {
+    try {
+        const res = await fetch(`data/reports/${fileName}`);
+        if (!res.ok) throw new Error("404 Not Found");
+        const markdown = await res.text();
+        console.log("読み込み成功:", markdown.length, "文字");
+    } catch (err) {
+        console.error("エラー:", err);
+    }
+}
+```
+````
+**【表示プレビュー】**
+```javascript
+// レポートのデータを取得して描画するサンプル
+async function loadReport(fileName) {
+    try {
+        const res = await fetch(`data/reports/${fileName}`);
+        if (!res.ok) throw new Error("404 Not Found");
+        const markdown = await res.text();
+        console.log("読み込み成功:", markdown.length, "文字");
+    } catch (err) {
+        console.error("エラー:", err);
+    }
+}
+```
+
+</details>
+
+---
+
+## 5. GitHub風アラート・コールアウト記法
 
 引用ブロックの先頭に `[!TYPE]` を書くことで、用途に応じた5種類のアラートボックスを作成できます。
 
@@ -210,7 +322,7 @@ ___
 
 ---
 
-## 4. KaTeX 数式（ブロック数式）
+## 6. KaTeX 数式（ブロック数式）
 
 `$$ ... $$` または `\[ ... \]` で囲むと、中央揃えの綺麗な数式ブロックとして描画されます。
 長い数式でも、スマートフォン表示時に画面外へはみ出さず、横スクロールできます。
@@ -247,13 +359,27 @@ $$
 
 ---
 
-## 5. Mermaid ダイアグラム（GitHub標準操作ツールバー対応）
+## 7. Mermaid ダイアグラム
 
 コードブロックに ```` ```mermaid ```` を指定すると、フローチャートやシーケンス図などを描画できます。
 図の右上に **操作ツールバー（移動・拡大・縮小・リセット）** が表示され、マウスドラッグやボタンクリックで図を自由に操作できます。
 
+<details class="md-details">
+<summary>フローチャート</summary>
+
 ````markdown
-<!-- フローチャート -->
+```mermaid
+graph TD
+    Start([開始]) --> Input[入力データ受け取り]
+    Input --> Process[Markdown解析]
+    Process --> Check{数式やMermaidがあるか?}
+    Check -- Yes --> RenderExt[拡張レンダラー実行]
+    Check -- No --> Output[標準HTML出力]
+    RenderExt --> Output
+    Output --> Finish([ブラウザ表示完了])
+```
+````
+**【表示プレビュー】**
 ```mermaid
 graph TD
     Start([開始]) --> Input[入力データ受け取り]
@@ -265,7 +391,12 @@ graph TD
     Output --> Finish([ブラウザ表示完了])
 ```
 
-<!-- シーケンス図 -->
+</details>
+
+<details class="md-details">
+<summary>シーケンス図</summary>
+
+````markdown
 ```mermaid
 sequenceDiagram
     autonumber
@@ -281,28 +412,7 @@ sequenceDiagram
     Browser-->>User: 綺麗に装飾された記事を表示
 ```
 ````
-
 **【表示プレビュー】**
-
-<details class="md-details">
-<summary>フローチャートのプレビューを展開</summary>
-
-```mermaid
-graph TD
-    Start([開始]) --> Input[入力データ受け取り]
-    Input --> Process[Markdown解析]
-    Process --> Check{数式やMermaidがあるか?}
-    Check -- Yes --> RenderExt[拡張レンダラー実行]
-    Check -- No --> Output[標準HTML出力]
-    RenderExt --> Output
-    Output --> Finish([ブラウザ表示完了])
-```
-
-</details>
-
-<details class="md-details">
-<summary>シーケンス図のプレビューを展開</summary>
-
 ```mermaid
 sequenceDiagram
     autonumber
@@ -319,97 +429,6 @@ sequenceDiagram
 ```
 
 </details>
-
----
-
-## 6. コードブロック（シンタックスハイライト）
-
-言語名を指定することで、自動的にコードのキーワードが色分けされます。右上のコピーボタンからコード全体をワンクリックでコピーできます。
-
-````markdown
-```python
-def fibonacci(n: int) -> int:
-    """フィボナッチ数を再帰的に計算する"""
-    if n <= 0:
-        return 0
-    elif n == 1:
-        return 1
-    return fibonacci(n - 1) + fibonacci(n - 2)
-
-print([fibonacci(i) for i in range(10)])
-```
-
-```javascript
-// レポートのデータを取得して描画するサンプル
-async function loadReport(fileName) {
-    try {
-        const res = await fetch(`data/reports/${fileName}`);
-        if (!res.ok) throw new Error("404 Not Found");
-        const markdown = await res.text();
-        console.log("読み込み成功:", markdown.length, "文字");
-    } catch (err) {
-        console.error("エラー:", err);
-    }
-}
-```
-````
-
-**【表示プレビュー】**
-
-```python
-def fibonacci(n: int) -> int:
-    """フィボナッチ数を再帰的に計算する"""
-    if n <= 0:
-        return 0
-    elif n == 1:
-        return 1
-    return fibonacci(n - 1) + fibonacci(n - 2)
-
-print([fibonacci(i) for i in range(10)])
-```
-
-```javascript
-// レポートのデータを取得して描画するサンプル
-async function loadReport(fileName) {
-    try {
-        const res = await fetch(`data/reports/${fileName}`);
-        if (!res.ok) throw new Error("404 Not Found");
-        const markdown = await res.text();
-        console.log("読み込み成功:", markdown.length, "文字");
-    } catch (err) {
-        console.error("エラー:", err);
-    }
-}
-```
-
----
-
-## 7. メディア・リンクの埋め込み
-
-### 7-1. リンク
-```markdown
-- [情報技術サークル ホームへ戻る](index.html)
-- 📄 [SuperCon2026 チームレポート PDFを開く](images/pdf/SuperCon2026_チーム15レポート.pdf)
-- 外部サイト: [Google](https://www.google.com)
-- URL自動リンク: https://github.com
-```
-
-**【表示プレビュー】**
-- [情報技術サークル ホームへ戻る](index.html)
-- 📄 [SuperCon2026 チームレポート PDFを開く](images/pdf/SuperCon2026_チーム15レポート.pdf)
-- 外部サイト: [Google](https://www.google.com)
-- URL自動リンク: https://github.com
-
----
-
-### 7-2. 画像
-```markdown
-![サークルロゴ](images/icon.svg)
-```
-
-**【表示プレビュー】**
-![サークルロゴ](images/icon.svg)
-
 
 ---
 
@@ -478,17 +497,19 @@ Markdownだけでは表現しにくい高度なレイアウト、動画・SNS・
 長いソースコードや大会の解答解説、補足情報をすっきりと隠し、読者がクリックしたときだけ展開できます。JavaScript不要の標準機能です。
 
 > [!IMPORTANT]
-> **折りたたみ内でMarkdownやコードブロックを使う場合の注意点**
-> 1. **空行を空ける**: `<summary>` の直後と `</details>` の直前には、必ず**空行を1行**空けてください（空行がないと全体がHTML扱いとなり、Markdown記法が無効になります）。
+> **HTML構文内で、Markdown記法等を使う場合の注意点**
+> 1. **空行を空ける**: HTMLとMarkdownの境界は、必ず**空行を1行**空けてください。（空行がないと全体がHTML扱いとなり、内部のMarkdown記法が無効になります）
 > 2. **行頭（インデントなし）から書く**: 内側のMarkdownは**スペースを空けずに行頭から**書いてください。行頭に4つ以上のスペースやタブを入れると、Markdownの仕様により意図せずコードブロックとして認識されてしまいます。
 
 ```markdown
 <details class="md-details">
 <summary>ここをクリックしてを展開</summary>
 
-- [x] 円の公式は、\((x-\alpha)^2+(y-\beta)^2=r^2\)で、\((\alpha,\beta)\)は、円の**中心座標**を表します
-- Googleスプレッドシートで、正弦（\(\sin\)）を求める `=SIN(ラジアン)`
-- ラジアン（*弧度法*）とは、==半径1の円（単位円）の「弧の長さ」で表した角度の単位==です。
+##### これまで紹介した記法の例
+- [x] 円の公式は、 \((x-\alpha)^2+(y-\beta)^2=r^2\) で、 \((\alpha,\beta)\) は、円の **中心座標** を表します。
+- ラジアン *(弧度法)* とは、 ~~半径1の円~~ <span style="color: #ef4444; font-weight: bold;">単位円</span> の ==「弧の長さ」で表した角度の単位== です。
+> [!NOTE]
+> 折りたたみ内の見出しは、目次（`TOC`）には追加されません。
 
 </details>
 ```
@@ -498,9 +519,11 @@ Markdownだけでは表現しにくい高度なレイアウト、動画・SNS・
 <details class="md-details">
 <summary>ここをクリックして展開</summary>
 
-- [x] 円の公式は、\((x-\alpha)^2+(y-\beta)^2=r^2\)で、\((\alpha,\beta)\)は、円の**中心座標**を表します
-- Googleスプレッドシートで、正弦（\(\sin\)）を求める `=SIN(ラジアン)`
-- ラジアン（*弧度法*）とは、==半径1の円（*単位円*）の「弧の長さ」で表した角度の単位==です。
+##### これまで紹介した記法の例
+- [x] 円の公式は、 \((x-\alpha)^2+(y-\beta)^2=r^2\) で、 \((\alpha,\beta)\) は、円の **中心座標** を表します。
+- ラジアン *(弧度法)* とは、 ~~半径1の円~~ <span style="color: #ef4444; font-weight: bold;">単位円</span> の ==「弧の長さ」で表した角度の単位== です。
+> [!NOTE]
+> 折りたたみ内の見出しは、目次（`TOC`）には追加されません。
 
 </details>
 
@@ -513,11 +536,15 @@ Markdownだけでは表現しにくい高度なレイアウト、動画・SNS・
 <!-- 左右2カラム分割レイアウト -->
 <div class="columns-2">
   <div>
-    <img src="images/icon.svg" alt="アイコン" width="100%">
+    <img src="images/icon.svg" alt="アイコン" width="80%" style="display:block; margin:auto;">
   </div>
   <div>
-    <h4>左画像・右解説のレイアウト</h4>
+    <h4 class="no-toc">左画像・右解説のレイアウト</h4>
     <p>スマートフォンの画面幅では自動的に縦並びに切り替わります。活動写真とインタビューや、作品画像と説明文を左右に並べたいときに便利です。</p>
+
+> [!NOTE]
+> 見出しを目次（`TOC`）に追加させたくない場合は、 `class="no-toc"` を指定します。
+
   </div>
 </div>
 ```
@@ -526,80 +553,72 @@ Markdownだけでは表現しにくい高度なレイアウト、動画・SNS・
 
 <div class="columns-2">
   <div>
-    <img src="images/icon.svg" alt="アイコン" width="120" style="display:block; margin:auto;">
+    <img src="images/icon.svg" alt="アイコン" width="80%" style="display:block; margin:auto;">
   </div>
   <div>
-    <h4>左画像・右解説のレイアウト</h4>
+    <h2 class="no-toc">左画像・右解説のレイアウト</h2>
     <p>スマートフォンの画面幅では自動的に縦並びに切り替わります。活動写真とインタビューや、作品画像と説明文を左右に並べたいときに便利です。</p>
-  </div>
-</div>
-
----
-
-### 8-5. YouTube 動画埋め込み（レスポンシブ 16:9）
-`.video-container` で `<iframe>` を囲むことで、PCでもスマートフォンでもアスペクト比 16:9 を綺麗に保ちながら画面幅いっぱいにフィットします。
 
 > [!NOTE]
-> **YouTubeを埋め込む際の重要なポイント**
-> - 通常の動画URL（`https://www.youtube.com/watch?v=...` や短縮URL `https://youtu.be/...`）は、YouTubeのセキュリティ制限により埋め込み再生が拒否されます。
-> - 必ず動画ページの「共有」→「埋め込み」から取得できる **`https://www.youtube.com/embed/動画ID`** 形式のURLを指定してください。
-
-```html
-<div class="video-container">
-  <iframe width="1037" 
-    height="583" 
-   src="https://www.youtube.com/embed/jVpP5bIff8A" 
-   title="令和3年度多摩高校学校紹介動画 10分ver" 
-   frameborder="0" 
-   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-   referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-  </iframe>
-</div>
-```
-
-**【表示プレビュー】**
-
-<div class="video-container">
-  <iframe width="1037" 
-    height="583" 
-   src="https://www.youtube.com/embed/jVpP5bIff8A" 
-   title="令和3年度多摩高校学校紹介動画 10分ver" 
-   frameborder="0" 
-   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-   referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-  </iframe>
-</div>
-
----
-
-### 8-6. SNS埋め込み（X / Twitter & Instagram）
-各SNSが発行する公式埋め込みコード（`<blockquote>`）を貼り付けると、`report.js` が公式スクリプトを自動呼び出しし、リッチな埋め込みカードに変換します。
-
-```html
-<!-- X (旧Twitter) 公式埋め込み構文 -->
-<div class="sns-container">
-  <blockquote class="twitter-tweet">
-    <p lang="ja" dir="ltr">今年から活動を開始した、神奈川県立多摩高等学校 情報技術サークルです！　このアカウントでは、定期的に活動報告をしていく予定です。よろしくお願いします！_(._.)_</p>
-    &mdash; 神奈川県立多摩高等学校 情報技術サークル (@TAMA_ITcircle)
-    <a href="https://x.com/TAMA_ITcircle/status/2049768859490816371?ref_src=twsrc%5Etfw">April 30, 2026</a>
-  </blockquote>
-<script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
-</div>
-```
-<details class="md-details">
-  <summary>Instagramの埋め込み構文</summary>
-  <div class="details-content">
-  
-  ```html
-  <div class="sns-container">
-  <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DcaDHYOTC29/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DcaDHYOTC29/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">この投稿をInstagramで見る</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DcaDHYOTC29/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">多摩高等学校 情報技術サークル(@tama_itcircle)がシェアした投稿</a></p></div></blockquote>
-<script async src="//www.instagram.com/embed.js"></script>
-</div>
-  ```
+> 見出しを目次（`TOC`）に追加させたくない場合は、 `class="no-toc"` を指定します。
 
   </div>
+</div>
+
+---
+
+### 8-5. SNSの埋め込み
+YouTube・X（Twitter）・Instagramの埋め込みに対応しています。
+各サービスが発行する**埋め込みコード**を取得して貼り付けることで、リッチな埋め込みカードや動画プレーヤーが表示されます。
+
+<details class="md-details">
+<summary>YouTube</summary>
+
+`.video-container` で `<iframe>` を囲むことで、PCでもスマートフォンでもアスペクト比 16:9 を綺麗に保ちながら画面幅いっぱいにフィットします。
+
+```html
+<div class="video-container">
+  <iframe width="1037" 
+    height="583" 
+    src="https://www.youtube.com/embed/jVpP5bIff8A" 
+    title="令和3年度多摩高校学校紹介動画 10分ver" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+  </iframe>
+</div>
+```
+
+**【表示プレビュー】**
+
+<div class="video-container">
+  <iframe width="1037" 
+    height="583" 
+    src="https://www.youtube.com/embed/jVpP5bIff8A" 
+    title="令和3年度多摩高校学校紹介動画 10分ver" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+  </iframe>
+</div>
+
 </details>
 
+<details class="md-details">
+<summary>X（Twitter）</summary>
+
+公式の埋め込みコード（`<blockquote class="twitter-tweet">`）を貼り付けると、`report.js` が公式スクリプトを自動呼び出しし、リッチなポストカードに変換します。
+
+```html
+<div class="sns-container">
+  <blockquote class="twitter-tweet">
+    <p lang="ja" dir="ltr">今年から活動を開始した、神奈川県立多摩高等学校 情報技術サークルです！　このアカウントでは、定期的に活動報告をしていく予定です。よろしくお願いします！_(._.)_</p>
+    &mdash; 神奈川県立多摩高等学校 情報技術サークル (@TAMA_ITcircle)
+    <a href="https://x.com/TAMA_ITcircle/status/2049768859490816371?ref_src=twsrc%5Etfw">April 30, 2026</a>
+  </blockquote>
+  <script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
+</div>
+```
 
 **【表示プレビュー】**
 
@@ -609,24 +628,36 @@ Markdownだけでは表現しにくい高度なレイアウト、動画・SNS・
     &mdash; 神奈川県立多摩高等学校 情報技術サークル (@TAMA_ITcircle)
     <a href="https://x.com/TAMA_ITcircle/status/2049768859490816371?ref_src=twsrc%5Etfw">April 30, 2026</a>
   </blockquote>
-<script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
+  <script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
 </div>
+
+</details>
 
 <details class="md-details">
-  <summary>Instagramの埋め込み</summary>
-  <div class="details-content">
-  
-  <div class="sns-container">
-  <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DcaDHYOTC29/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DcaDHYOTC29/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">この投稿をInstagramで見る</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DcaDHYOTC29/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">多摩高等学校 情報技術サークル(@tama_itcircle)がシェアした投稿</a></p></div></blockquote>
-<script async src="//www.instagram.com/embed.js"></script>
-</div>
+<summary>Instagram</summary>
 
+投稿の「埋め込み」から取得した公式埋め込みコード（`<blockquote class="instagram-media">`）を貼り付けると、`report.js` が自動的にInstagram埋め込みスクリプトをロードして中央揃えのカードとして表示します。
+
+```html
+<div class="sns-container">
+  <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DcaDHYOTC29/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14">
+    <a href="https://www.instagram.com/p/DcaDHYOTC29/?utm_source=ig_embed&amp;utm_campaign=loading" target="_blank">この投稿をInstagramで見る</a>
+  </blockquote>
+  <script async src="//www.instagram.com/embed.js"></script>
 </div>
+```
+
+**【表示プレビュー】**
+
+<div class="sns-container">
+  <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DcaDHYOTC29/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DcaDHYOTC29/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div>
+
 </details>
 
 ---
 
-### 8-7. 記事・作品紹介カード（.article-card）
+
+### 8-6. 記事・作品紹介カード（.article-card）
 記事内で他のレポートや制作物をリッチに紹介するためのカードコンポーネントです。
 
 ```html
@@ -653,7 +684,7 @@ Markdownだけでは表現しにくい高度なレイアウト、動画・SNS・
 
 ---
 
-### 8-8. PDFプレビュー埋め込み（.pdf-container）
+### 8-7. PDFプレビュー埋め込み（.pdf-container）
 Google Drive経由のプレビューや、サイト内PDFを記事内で直接閲覧できる埋め込み枠です。
 
 ```html
@@ -695,7 +726,7 @@ Google Drive経由のプレビューや、サイト内PDFを記事内で直接�
 
 ---
 
-### 8-10. 音声・動画タグ（`<audio>` / `<video>`）
+### 8-9. 音声・動画タグ（`<audio>` / `<video>`）
 サイト内に配置した音声ファイル（.mp3）や動画ファイル（.mp4）を直接ブラウザ上で再生できます。
 
 ```html
