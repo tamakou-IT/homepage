@@ -74,6 +74,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         // 5. 目次 (TOC) の生成・挿入
         processTableOfContents(reportContainer);
 
+        // 5-2. SNS埋め込み（X/Twitter, Instagram）の初期化
+        processSnsEmbeds(reportContainer);
+
         // 6-2. コードブロックのコピーボタン初期化
         initCodeCopyButtons(reportContainer);
 
@@ -624,6 +627,83 @@ document.addEventListener("DOMContentLoaded", async () => {
                 updateTransform();
             });
         });
+    }
+
+
+    // ページ単位のクラス付与 & ページ別CSS読み込み
+    function setupPageCustomStyles(fileName, container) {
+        // 例: "2026/test.md" -> "report-page--2026-test"
+        const cleanName = fileName.replace(/\.md$/i, "").replace(/[^a-zA-Z0-9_-]/g, "-");
+        const pageClassName = `report-page--${cleanName}`;
+        container.classList.add("report-content", pageClassName);
+
+        // 既存のページ専用CSSリンクを解除
+        const existingLink = document.getElementById("report-custom-css");
+        if (existingLink) {
+            existingLink.remove();
+        }
+
+        // 該当記事のCSS (例: css/reports/2026/test.css) が存在すればロード
+        const cssPath = `css/reports/${fileName.replace(/\.md$/i, ".css")}`;
+        fetch(cssPath, { method: "HEAD" })
+            .then((res) => {
+                if (res.ok) {
+                    const link = document.createElement("link");
+                    link.id = "report-custom-css";
+                    link.rel = "stylesheet";
+                    link.href = cssPath;
+                    document.head.appendChild(link);
+                }
+            })
+            .catch(() => {});
+    }
+
+    // SNS埋め込み（X/Twitter, Instagram）の動的スクリプト読み込み＆変換
+    function processSnsEmbeds(container) {
+        // X (Twitter)
+        if (container.querySelector(".twitter-tweet")) {
+            if (window.twttr && window.twttr.widgets) {
+                try {
+                    window.twttr.widgets.load(container);
+                } catch (e) {
+                    console.warn("Twitter widget load error:", e);
+                }
+            } else if (!document.getElementById("twitter-wjs")) {
+                const s = document.createElement("script");
+                s.id = "twitter-wjs";
+                s.src = "https://platform.twitter.com/widgets.js";
+                s.async = true;
+                s.charset = "utf-8";
+                s.onload = () => {
+                    if (window.twttr && window.twttr.widgets) {
+                        window.twttr.widgets.load(container);
+                    }
+                };
+                document.head.appendChild(s);
+            }
+        }
+
+        // Instagram
+        if (container.querySelector(".instagram-media")) {
+            if (window.instgrm && window.instgrm.Embeds) {
+                try {
+                    window.instgrm.Embeds.process();
+                } catch (e) {
+                    console.warn("Instagram embed process error:", e);
+                }
+            } else if (!document.getElementById("instagram-wjs")) {
+                const s = document.createElement("script");
+                s.id = "instagram-wjs";
+                s.src = "https://www.instagram.com/embed.js";
+                s.async = true;
+                s.onload = () => {
+                    if (window.instgrm && window.instgrm.Embeds) {
+                        window.instgrm.Embeds.process();
+                    }
+                };
+                document.head.appendChild(s);
+            }
+        }
     }
 
     function showNotFound() {
