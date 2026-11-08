@@ -30,9 +30,6 @@
 #### 見出し 4（小見出し）
 ```
 
-**【表示プレビュー】**
-#### 見出し 4 の表示サンプル
-
 ---
 
 ### 1-2. 太字・斜体・取り消し線・インライン
@@ -82,58 +79,46 @@
 
 ---
 
-## 2. リスト・表組み・引用
+## 2. リスト・表組み・引用・区切り線
 
-### 2-1. 箇条書き・番号付きリスト
-階層を持ったリストを作成できます。半角スペース2〜4個でインデントします。
+### 2-1. 箇条書き・番号付きリスト・タスクリスト
+階層を持った箇条書きや番号付き手順、およびチェックボックス付きタスクリストを作成できます。入れ子にする場合は、半角スペース2〜4個でインデントします。（<kbd>Tab</kbd>を使うと簡単！）
 
 ```markdown
 - 箇条書きアイテム A
   - サブアイテム A-1
-  - サブアイテム A-2
-- 箇条書きアイテム B
-
-1. 手順その1：環境を整える
-2. 手順その2：Markdownで原稿を書く
-3. 手順その3：プレビューで確認する
-```
-
-**【表示プレビュー】**
-- 箇条書きアイテム A
-  - サブアイテム A-1
-  - サブアイテム A-2
+    - サブサブアイテム A-1-1
 - 箇条書きアイテム B
 
 1. 手順その1：環境を整える
 2. 手順その2：Markdownで原稿を書く
 3. 手順その3：プレビューで確認する
 
----
-
-### 2-2. タスクリスト（GFM対応）
-チェックボックス付きのやることリストです。サークルのブランドカラー（青色）にスタイリングされています。
-
-```markdown
-- [x] サークル紹介サイトの設計完了
 - [x] レポート機能（Markdownプレビュー）の実装
-- [ ] 今月の活動報告記事の執筆
-- [ ] 次期コンテスト参加者の募集
+- [ ] サイト内コンテンツの拡充
 ```
 
 **【表示プレビュー】**
-- [x] サークル紹介サイトの設計完了
+- 箇条書きアイテム A
+  - サブアイテム A-1
+    - サブサブアイテム A-1-1
+- 箇条書きアイテム B
+
+1. 手順その1：環境を整える
+2. 手順その2：Markdownで原稿を書く
+3. 手順その3：プレビューで確認する
+
 - [x] レポート機能（Markdownプレビュー）の実装
-- [ ] 今月の活動報告記事の執筆
-- [ ] 次期コンテスト参加者の募集
+- [ ] サイト内コンテンツの拡充
 
 ---
 
-### 2-3. テーブル（表組み・GFM対応）
+### 2-2. テーブル（表組み・GFM対応）
 パイプ記号 `|` で表を作成します。コロン `:` の位置で「左寄せ」「中央揃え」「右寄せ」を指定できます。
 
 ```markdown
 | 言語 / 項目 | 分類 | 難易度 | 用途 |
-| :--- | :---: | ---: | :--- |
+| :--- | :---: | :---: | ---: |
 | **Python** | スクリプト | ★☆☆ | データ分析・AI・競プロ |
 | **C++** | コンパイル | ★★★ | 競技プログラミング・高速処理 |
 | **JavaScript** | Webフロント | ★★☆ | Webサイト・Webアプリ開発 |
@@ -142,15 +127,15 @@
 **【表示プレビュー】**
 
 | 言語 / 項目 | 分類 | 難易度 | 用途 |
-| :--- | :---: | ---: | :--- |
+| :--- | :---: | :---: | ---: |
 | **Python** | スクリプト | ★☆☆ | データ分析・AI・競プロ |
 | **C++** | コンパイル | ★★★ | 競技プログラミング・高速処理 |
 | **JavaScript** | Webフロント | ★★☆ | Webサイト・Webアプリ開発 |
 
 ---
 
-### 2-4. 引用（Blockquote）
-他からの引用や注釈を記述します。
+### 2-3. 引用（Blockquote）
+他からの引用や注釈を記述します。行頭に `>` を付けます。
 
 ```markdown
 > これは通常の引用ブロックです。
@@ -162,61 +147,64 @@
 > 複数行にわたって引用を続けることも可能です。
 
 ---
+
+### 2-4. 水平区切り線（Thematic Breaks）
+段落や話題の切り替えを示す水平線（`<hr>`）を挿入します。
+
+ハイフン（`-`）、アスタリスク（`*`）、またはアンダースコア（`_`）を**単独の行に3個以上**並べることで記述できます。記号の間に半角スペースを挟むことも可能です。
+
+> [!NOTE]
+> 前後の段落との間に空行がない場合、ハイフン（`---`）直上のテキストが見出し（h2）として認識されてしまうことがあります。区切り線の**前後は1行空ける**のがベストプラクティスです。
+
+```markdown
+---
+***
+___
+- - -
+```
+
+**【表示プレビュー】**
+
+---
+***
+___
+- - -
 
 ## 3. GitHub風アラート・コールアウト記法
 
 引用ブロックの先頭に `[!TYPE]` を書くことで、用途に応じた5種類のアラートボックスを作成できます。
 
-### 3-1. Note（補足・情報）
 ```markdown
 > [!NOTE]
 > ここには補足情報や背景の説明、関連する前提知識などを記載します。
-```
-**【表示プレビュー】**
-> [!NOTE]
-> ここには補足情報や背景の説明、関連する前提知識などを記載します。
 
----
-
-### 3-2. Tip（ヒント・アドバイス）
-```markdown
-> [!TIP]
-> 効率的な実装方法やおすすめのショートカット、推奨設定などを記載します。
-```
-**【表示プレビュー】**
 > [!TIP]
 > 効率的な実装方法やおすすめのショートカット、推奨設定などを記載します。
 
----
-
-### 3-3. Important（重要事項）
-```markdown
-> [!IMPORTANT]
-> 見逃してほしくない必須要件や重要な手順を記載します。
-```
-**【表示プレビュー】**
 > [!IMPORTANT]
 > 見逃してほしくない必須要件や重要な手順を記載します。
 
----
-
-### 3-4. Warning（警告・注意）
-```markdown
-> [!WARNING]
-> 仕様変更による影響や互換性の問題、注意すべき副作用を記載します。
-```
-**【表示プレビュー】**
 > [!WARNING]
 > 仕様変更による影響や互換性の問題、注意すべき副作用を記載します。
 
----
-
-### 3-5. Caution（危険・厳重警告）
-```markdown
 > [!CAUTION]
 > データの損失、不可逆な変更、セキュリティリスクなどを記載します。
 ```
+
 **【表示プレビュー】**
+
+> [!NOTE]
+> ここには補足情報や背景の説明、関連する前提知識などを記載します。
+
+> [!TIP]
+> 効率的な実装方法やおすすめのショートカット、推奨設定などを記載します。
+
+> [!IMPORTANT]
+> 見逃してほしくない必須要件や重要な手順を記載します。
+
+> [!WARNING]
+> 仕様変更による影響や互換性の問題、注意すべき副作用を記載します。
+
 > [!CAUTION]
 > データの損失、不可逆な変更、セキュリティリスクなどを記載します。
 
@@ -330,9 +318,8 @@ sequenceDiagram
 
 ## 6. コードブロック（シンタックスハイライト）
 
-言語名を指定することで、自動的にコードのキーワードが色分けされます。
+言語名を指定することで、自動的にコードのキーワードが色分けされます。右上のコピーボタンからコード全体をワンクリックでコピーできます。
 
-### Python 例
 ````markdown
 ```python
 def fibonacci(n: int) -> int:
@@ -345,23 +332,7 @@ def fibonacci(n: int) -> int:
 
 print([fibonacci(i) for i in range(10)])
 ```
-````
 
-**【表示プレビュー】**
-```python
-def fibonacci(n: int) -> int:
-    """フィボナッチ数を再帰的に計算する"""
-    if n <= 0:
-        return 0
-    elif n == 1:
-        return 1
-    return fibonacci(n - 1) + fibonacci(n - 2)
-
-print([fibonacci(i) for i in range(10)])
-```
-
-### JavaScript 例
-````markdown
 ```javascript
 // レポートのデータを取得して描画するサンプル
 async function loadReport(fileName) {
@@ -378,6 +349,19 @@ async function loadReport(fileName) {
 ````
 
 **【表示プレビュー】**
+
+```python
+def fibonacci(n: int) -> int:
+    """フィボナッチ数を再帰的に計算する"""
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+print([fibonacci(i) for i in range(10)])
+```
+
 ```javascript
 // レポートのデータを取得して描画するサンプル
 async function loadReport(fileName) {
@@ -489,24 +473,36 @@ Markdownだけでは表現しにくい高度なレイアウト、動画・SNS・
 ### 8-3. アコーディオン・折りたたみ表示（`<details>` & `<summary>`）
 長いソースコードや大会の解答解説、補足情報をすっきりと隠し、読者がクリックしたときだけ展開できます。JavaScript不要の標準機能です。
 
-```html
+> [!IMPORTANT]
+> **折りたたみ内でMarkdownやコードブロックを使う場合の注意点**
+> 1. **空行を空ける**: `<summary>` の直後と `</details>` の直前には、必ず**空行を1行**空けてください（空行がないと全体がHTML扱いとなり、Markdown記法が無効になります）。
+> 2. **行頭（インデントなし）から書く**: 内側のMarkdownは**スペースを空けずに行頭から**書いてください。行頭に4つ以上のスペースやタブを入れると、Markdownの仕様により意図せずコードブロックとして認識されてしまいます。
+
+```markdown
 <details class="md-details">
-  <summary>ここをクリックして詳細な解答解説を展開</summary>
-  <div class="details-content">
-    <p>ここに折りたたまれていた解説文やコードが入ります。</p>
-    <p>Markdownの箇条書きや数式、コードブロックを中に入れることも可能です。</p>
-  </div>
+<summary>ここをクリックしてを展開</summary>
+
+ここに折りたたまれていた解説文やコードが入ります。
+Markdownの箇条書きや数式、コードブロックを中に入れることも可能です。
+
+- [x] 円の公式は、\((x-\alpha)^2+(y-\beta)^2=r^2\)で、\((\alpha,\beta)\)は、円の**中心座標**を表します
+- Googleスプレッドシートで、正弦（\(\sin\)）を求める `=SIN(ラジアン)`
+- ラジアン（*弧度法*）とは、==半径1の円（単位円）の「弧の長さ」で表した角度の単位==です。
 </details>
 ```
 
 **【表示プレビュー】**
 
 <details class="md-details">
-  <summary>ここをクリックして詳細な解答解説を展開</summary>
-  <div class="details-content">
-    <p>ここに折りたたまれていた解説文やコードが入ります。</p>
-    <p>Markdownの箇条書きや数式、コードブロックを中に入れることも可能です。</p>
-  </div>
+<summary>ここをクリックして展開</summary>
+
+ここに折りたたまれていた解説文やコードが入ります。
+Markdownの箇条書きや数式、コードブロックを中に入れることも可能です。
+
+- [x] 円の公式は、\((x-\alpha)^2+(y-\beta)^2=r^2\)で、\((\alpha,\beta)\)は、円の**中心座標**を表します
+- Googleスプレッドシートで、正弦（\(\sin\)）を求める `=SIN(ラジアン)`
+- ラジアン（*弧度法*）とは、==半径1の円（*単位円*）の「弧の長さ」で表した角度の単位==です。
+
 </details>
 
 ---
@@ -591,7 +587,19 @@ Markdownだけでは表現しにくい高度なレイアウト、動画・SNS・
 <script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
 </div>
 ```
+<details class="md-details">
+  <summary>Instagram公式埋め込み構文</summary>
+  <div class="details-content">
+  
+  ```html
+  <div class="sns-container">
+  <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DcaDHYOTC29/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DcaDHYOTC29/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">この投稿をInstagramで見る</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DcaDHYOTC29/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">多摩高等学校 情報技術サークル(@tama_itcircle)がシェアした投稿</a></p></div></blockquote>
+<script async src="//www.instagram.com/embed.js"></script>
+</div>
+  ```
 
+  </div>
+</details>
 
 
 **【表示プレビュー】**

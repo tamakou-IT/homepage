@@ -255,8 +255,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         };
 
-        // marked レンダラーのカスタマイズ (GitHub Mermaidプレビュー準拠)
+        // marked レンダラーのカスタマイズ (GitHub Mermaid & GFMタスクリスト準拠)
         const renderer = {
+            listitem(token) {
+                const content = this.parser.parse(token.tokens);
+                if (token.task) {
+                    return `<li class="task-list-item">${content}</li>\n`;
+                }
+                return `<li>${content}</li>\n`;
+            },
             code(token) {
                 const code = typeof token === "object" ? (token.text || "") : (token || "");
                 const lang = typeof token === "object" ? ((token.lang || "").match(/\S*/)?.[0] || "") : "";

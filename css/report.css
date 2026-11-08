@@ -167,10 +167,12 @@
   margin-bottom: 0.4em;
 }
 
-/* タスクリスト (チェックボックス) */
-#site_report ul:has(input[type="checkbox"]) {
+/* タスクリスト (チェックボックス) - GFM準拠 */
+#site_report li:has(> input[type="checkbox"]),
+#site_report li:has(> p > input[type="checkbox"]),
+#site_report li.task-list-item {
   list-style: none;
-  padding-left: 0.2em;
+  margin-left: -1.2em;
 }
 
 #site_report input[type="checkbox"] {
@@ -265,6 +267,21 @@
 #site_report td {
   padding: 10px 14px;
   border: 1px solid #cbd5e1;
+  text-align: left;
+}
+
+#site_report th[align="center"],
+#site_report td[align="center"] {
+  text-align: center;
+}
+
+#site_report th[align="right"],
+#site_report td[align="right"] {
+  text-align: right;
+}
+
+#site_report th[align="left"],
+#site_report td[align="left"] {
   text-align: left;
 }
 
